@@ -35,6 +35,7 @@ class _SignInViewState extends State<SignInView> {
               controller: _emailController,
               hint: "Email",
               hintColor: ColorPalette.white,
+              fillColor: ColorPalette.Textformfireldbg,
               // onValidate: (value) {
               //   if (value == null || value.trim().isEmpty) {
               //     return "plz enter your email address";
@@ -54,6 +55,7 @@ class _SignInViewState extends State<SignInView> {
               isPassword: true,
               maxLines: 1,
               hint: "Password",
+              fillColor: ColorPalette.Textformfireldbg,
               hintColor: ColorPalette.white,
               onValidate: (value) {
                 if (value == null || value.trim().isEmpty) {
@@ -102,6 +104,8 @@ class _SignInViewState extends State<SignInView> {
                 //     },
                 //   );
                 // }
+                navigatorKey.currentState!.pushNamed(PagesRouteName.layout);
+
               },
               style: ElevatedButton.styleFrom(
                 elevation: 0,

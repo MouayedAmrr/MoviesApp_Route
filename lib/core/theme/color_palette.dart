@@ -7,5 +7,7 @@ abstract class ColorPalette {
   static const Color black = Colors.black;
   static const Color red = Color(0xffE82626);
   static const Color generalGreyColor = Color(0xFF7B7B7B);
+  static const Color bgcolor = Color(0xFF121312);
+  static const Color Textformfireldbg = Color(0xFF282A28);
 
 }

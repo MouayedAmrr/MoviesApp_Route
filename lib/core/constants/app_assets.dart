@@ -13,4 +13,11 @@ abstract class AppAssets {
   static const String onboardFourthImg = "assets/images/Onboard4.png";
   static const String onboardFifthImg = "assets/images/Onboard5.png";
   static const String onboardLastImg = "assets/images/Onboard6.png";
+  static const String homeview = "assets/images/Home.png";
+  static const String homeTabIcon = "assets/icons/HomeTab_Icon.png";
+  static const String SearchTabIcon = "assets/icons/searchTabIcon.png";
+  static const String exploreTabIcon = "assets/icons/exploretTabIcon.png";
+  static const String ProfileTabIcon = "assets/icons/ProfielTabIcon.png";
+  static const String searchTabImage = "assets/icons/ProfielTabIcon.png";
+  static const String startImageRate = "assets/images/startImageRate.png";
 }

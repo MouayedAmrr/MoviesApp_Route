@@ -31,6 +31,7 @@ class ForgetPasswordView extends StatelessWidget {
           const CustomTextField(
             hint: "Email",
             hintColor: ColorPalette.white,
+            fillColor: ColorPalette.Textformfireldbg,
             prefixIcon: ImageIcon(
               AssetImage(AppAssets.mailIcn),
               color: ColorPalette.white,
