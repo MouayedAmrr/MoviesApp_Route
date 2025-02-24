@@ -6,4 +6,5 @@ class PagesRouteName {
   static const String forgetPassword = "forget_password_view";
   static const String layout = "layout_view";
   static const String movieDetails = "movie_details_view";
+  static const String UpdateProfile = "Update_profile_view";
 }

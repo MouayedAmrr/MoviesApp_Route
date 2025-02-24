@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:route_movies_app/modules/Profile/update_profile_view.dart';
 import 'package:route_movies_app/modules/movieDetails/movie_details_view.dart';
 import 'package:route_movies_app/core/routes/pages_route_name.dart';
 import '../../modules/forgetPassword/forget_password_view.dart';
@@ -64,6 +65,13 @@ abstract class AppRoutes {
           return MaterialPageRoute(
             builder: (context) => const MovieDetailsView(),
             settings: settings,
+          );
+        }
+
+      case PagesRouteName.UpdateProfile:
+        {
+          return MaterialPageRoute(builder: (context) => UpdateProfileView(),
+            settings: settings
           );
         }
 

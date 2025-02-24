@@ -56,6 +56,7 @@ class _SignUpViewState extends State<SignUpView> {
               controller: _nameController,
               hint: "Name",
               hintColor: ColorPalette.white,
+              fillColor: ColorPalette.Textformfireldbg,
               onValidate: (value) {
                 if (value == null || value.trim().isEmpty) {
                   return "plz enter your name";
@@ -71,6 +72,8 @@ class _SignUpViewState extends State<SignUpView> {
               controller: _emailController,
               hint: "Email",
               hintColor: ColorPalette.white,
+              fillColor: ColorPalette.Textformfireldbg,
+
               // onValidate: (value) {
               //   if (value == null || value.trim().isEmpty) {
               //     return "plz enter your email address";
@@ -91,6 +94,8 @@ class _SignUpViewState extends State<SignUpView> {
               maxLines: 1,
               hint: "Password",
               hintColor: ColorPalette.white,
+              fillColor: ColorPalette.Textformfireldbg,
+
               // onValidate: (value) {
               //   if (value == null || value.trim().isEmpty) {
               //     return "plz enter your password";
@@ -110,6 +115,8 @@ class _SignUpViewState extends State<SignUpView> {
               maxLines: 1,
               hint: "Re-Password",
               hintColor: ColorPalette.white,
+              fillColor: ColorPalette.Textformfireldbg,
+
               onValidate: (value) {
                 if (value == null || value.trim().isEmpty) {
                   return "plz enter your password";
@@ -127,6 +134,7 @@ class _SignUpViewState extends State<SignUpView> {
             CustomTextField(
               controller: _phoneController,
               hint: "Phone Number",
+              fillColor: ColorPalette.Textformfireldbg,
               hintColor: ColorPalette.white,
               prefixIcon: ImageIcon(
                 AssetImage(AppAssets.phoneIcn),
