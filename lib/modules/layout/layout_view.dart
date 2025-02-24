@@ -42,19 +42,31 @@ class _LayoutViewState extends State<LayoutView> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(AppAssets.homeTabIcon),size: 25,),
+              icon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ImageIcon(AssetImage(AppAssets.homeTabIcon),size: 25,),
+              ),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(AppAssets.SearchTabIcon),size: 25,),
+              icon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ImageIcon(AssetImage(AppAssets.SearchTabIcon),size: 25,),
+              ),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(AppAssets.exploreTabIcon),size: 25,),
+              icon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ImageIcon(AssetImage(AppAssets.exploreTabIcon),size: 25,),
+              ),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(AppAssets.ProfileTabIcon),size: 25,),
+              icon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ImageIcon(AssetImage(AppAssets.ProfileTabIcon),size: 25,),
+              ),
               label: "",
             ),
           ],

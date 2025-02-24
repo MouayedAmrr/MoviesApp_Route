@@ -75,7 +75,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     Color borderClr = widget.borderColor ?? widget.fillColor ?? Colors.transparent;
 
     return TextFormField(
-      readOnly: widget.isReadOnly ?? false, // Control editability
+      readOnly: widget.isReadOnly ?? false, // Control edit ability
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
@@ -97,7 +97,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
       enabled: widget.enabled,
-      style: widget.textStyle ?? const TextStyle(color: Colors.black),
+      style: widget.textStyle ?? const TextStyle(color: Colors.white),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       textInputAction: widget.action ?? TextInputAction.done,
       focusNode: widget.focusNode,
