@@ -1,12 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:route_movies_app/core/extensions/extensions.dart';
-import 'package:route_movies_app/core/routes/app_routes.dart';
 import 'package:route_movies_app/core/routes/pages_route_name.dart';
 import 'package:route_movies_app/core/theme/color_palette.dart';
 import 'package:route_movies_app/main.dart';
+import 'package:route_movies_app/modules/layout/viewModel/movie_view_model.dart';
 
 import '../../core/constants/app_assets.dart';
+import '../../models/movie_model.dart';
 
 class HomeTabView extends StatefulWidget {
   const HomeTabView({super.key});
@@ -18,15 +20,10 @@ class HomeTabView extends StatefulWidget {
 class _HomeTabViewState extends State<HomeTabView> {
   int _currentIndex = 0;
 
-  final List<String> movieImages = [
-    "assets/images/moviephoto.png",
-    "assets/images/movie2.png",
-    "assets/images/movie3.png",
-    "assets/images/movie5.png",
-  ];
-
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MovieViewModel>(context);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -42,76 +39,70 @@ class _HomeTabViewState extends State<HomeTabView> {
             child: Column(
               children: [
                 SizedBox(height: 100),
-                GestureDetector(
-                  onTap: () {
-                    navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
-                  },
-                  child: CarouselSlider(
-                    items:
-                        movieImages.map((imagePath) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Stack(
-                              children: [
-                                Image.asset(
-                                  imagePath,
-                                  fit: BoxFit.fill,
-                                  width: double.infinity,
-                                ),
-                                Positioned(
-                                  top: 10,
-                                  left: 10,
-                                  child: Container(
-                                    width: 65,
-                                    height: 30,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 4,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.black.withOpacity(0.6),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "7.7",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        Image.asset(AppAssets.startImageRate),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                    options: CarouselOptions(
-                      height: 354,
-                      aspectRatio: 0.7,
-                      viewportFraction: 0.6,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      autoPlay: false,
-                      autoPlayInterval: const Duration(seconds: 3),
-                      autoPlayAnimationDuration: const Duration(
-                        milliseconds: 800,
-                      ),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      enlargeFactor: 0.3,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _currentIndex = index;
-                        });
+                CarouselSlider(
+                  items: provider.movies.map((movie) {
+                    return GestureDetector(
+                      onTap: () {
+                        provider.setSelectedMovie(movie);
+                        navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
                       },
-                    ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              movie.image,
+                              fit: BoxFit.fill,
+                              width: double.infinity,
+                            ),
+                            Positioned(
+                              top: 10,
+                              left: 10,
+                              child: Container(
+                                width: 65,
+                                height: 30,
+                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${movie.rating}",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Image.asset(AppAssets.startImageRate),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                  options: CarouselOptions(
+                    height: 354,
+                    aspectRatio: 0.7,
+                    viewportFraction: 0.6,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    autoPlay: false,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.3,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
                   ),
                 ),
                 SizedBox(height: 160),
@@ -143,23 +134,26 @@ class _HomeTabViewState extends State<HomeTabView> {
                   ],
                 ).setHorizontalPadding(context, 0.03),
                 SizedBox(height: 10),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
-                    },
-                    child: ListView.builder(
-                      itemCount: movieImages.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Padding(
+                SizedBox(
+                  height: 220,
+                  child: ListView.builder(
+                    itemCount: provider.movies.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      final movie = provider.movies[index];
+                      return GestureDetector(
+                        onTap: () {
+                          provider.setSelectedMovie(movie);
+                          navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
+                        },
+                        child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: Stack(
                               children: [
                                 Image.asset(
-                                  movieImages[index],
+                                  movie.image,
                                   width: 146,
                                   height: 220,
                                   fit: BoxFit.cover,
@@ -172,14 +166,16 @@ class _HomeTabViewState extends State<HomeTabView> {
                                     height: 28,
                                     decoration: BoxDecoration(
                                       color: Colors.black.withOpacity(0.7),
-                                      borderRadius: BorderRadius.circular(16)
+                                      borderRadius: BorderRadius.circular(16),
                                     ),
                                     child: Row(
-                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text("  7.7", style: TextStyle(color: ColorPalette.white),),
-                                        SizedBox(width: 7,),
-                                        Image.asset(AppAssets.startImageRate)
+                                        Text(
+                                          "  ${movie.rating}",
+                                          style: TextStyle(color: ColorPalette.white),
+                                        ),
+                                        SizedBox(width: 7),
+                                        Image.asset(AppAssets.startImageRate),
                                       ],
                                     ),
                                   ),
@@ -187,9 +183,9 @@ class _HomeTabViewState extends State<HomeTabView> {
                               ],
                             ),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
