@@ -8,7 +8,7 @@ import 'package:route_movies_app/main.dart';
 import 'package:route_movies_app/modules/layout/viewModel/movie_view_model.dart';
 
 import '../../core/constants/app_assets.dart';
-import '../../models/movie_model.dart';
+import '../../models/movie_HomeData_model.dart';
 
 class HomeTabView extends StatefulWidget {
   const HomeTabView({super.key});
@@ -19,10 +19,19 @@ class HomeTabView extends StatefulWidget {
 
 class _HomeTabViewState extends State<HomeTabView> {
   int _currentIndex = 0;
+  late MovieViewModel _viewModel;
+
+  @override
+  void initState() {
+    _viewModel = Provider.of<MovieViewModel>(context, listen: false);
+    super.initState();
+    Future.wait([
+      _viewModel.getHomeFilmData()
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<MovieViewModel>(context);
 
     return SingleChildScrollView(
       child: Column(
@@ -40,10 +49,10 @@ class _HomeTabViewState extends State<HomeTabView> {
               children: [
                 SizedBox(height: 100),
                 CarouselSlider(
-                  items: provider.movies.map((movie) {
+                  items: _viewModel.movies.map((movie) {
                     return GestureDetector(
                       onTap: () {
-                        provider.setSelectedMovie(movie);
+                        _viewModel.setSelectedMovie(movie);
                         navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
                       },
                       child: ClipRRect(
@@ -137,13 +146,13 @@ class _HomeTabViewState extends State<HomeTabView> {
                 SizedBox(
                   height: 220,
                   child: ListView.builder(
-                    itemCount: provider.movies.length,
+                    itemCount: _viewModel.movies.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      final movie = provider.movies[index];
+                      final movie = _viewModel.movies[index];
                       return GestureDetector(
                         onTap: () {
-                          provider.setSelectedMovie(movie);
+                          _viewModel.setSelectedMovie(movie);
                           navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
                         },
                         child: Padding(
