@@ -8,7 +8,6 @@ import 'package:route_movies_app/main.dart';
 import 'package:route_movies_app/modules/layout/viewModel/movie_view_model.dart';
 
 import '../../core/constants/app_assets.dart';
-import '../../models/movie_HomeData_model.dart';
 
 class HomeTabView extends StatefulWidget {
   const HomeTabView({super.key});
@@ -25,6 +24,7 @@ class _HomeTabViewState extends State<HomeTabView> {
   void initState() {
     _viewModel = Provider.of<MovieViewModel>(context, listen: false);
     super.initState();
+    // Fetch the movie data on init
     Future.wait([
       _viewModel.getHomeFilmData()
     ]);
@@ -32,7 +32,6 @@ class _HomeTabViewState extends State<HomeTabView> {
 
   @override
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -48,73 +47,66 @@ class _HomeTabViewState extends State<HomeTabView> {
             child: Column(
               children: [
                 SizedBox(height: 100),
-                CarouselSlider(
-                  items: _viewModel.movies.map((movie) {
-                    return GestureDetector(
-                      onTap: () {
-                        _viewModel.setSelectedMovie(movie);
-                        navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Stack(
-                          children: [
-                            Image.asset(
-                              movie.image,
-                              fit: BoxFit.fill,
-                              width: double.infinity,
-                            ),
-                            Positioned(
-                              top: 10,
-                              left: 10,
-                              child: Container(
-                                width: 65,
-                                height: 30,
-                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.6),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "${movie.rating}",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
+                // Use movieHomeDataList for Carousel
+              CarouselSlider(
+                items: _viewModel.movieHomeDataList.map((movie) {
+                  return GestureDetector(
+                    onTap: () {
+                      _viewModel.onFilmClicked(movie);
+                      navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Stack(
+                        children: [
+                          Image.network(
+                            movie.backgroundImage,
+                            fit: BoxFit.fill,
+                            width: double.infinity,
+                          ),
+                          Positioned(
+                            top: 10,
+                            left: 10,
+                            child: Container(
+                              width: 65,
+                              height: 30,
+                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.6),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "${movie.rating}",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
                                     ),
-                                    Image.asset(AppAssets.startImageRate),
-                                  ],
-                                ),
+                                  ),
+                                  Image.asset(AppAssets.startImageRate),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    );
-                  }).toList(),
-                  options: CarouselOptions(
-                    height: 354,
-                    aspectRatio: 0.7,
-                    viewportFraction: 0.6,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    autoPlay: false,
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enlargeCenterPage: true,
-                    enlargeFactor: 0.3,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _currentIndex = index;
-                      });
-                    },
-                  ),
+                    ),
+                  );
+                }).toList(),
+                options: CarouselOptions(
+                  height: 354,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
                 ),
-                SizedBox(height: 160),
+              ),
+              SizedBox(height: 160),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -146,13 +138,13 @@ class _HomeTabViewState extends State<HomeTabView> {
                 SizedBox(
                   height: 220,
                   child: ListView.builder(
-                    itemCount: _viewModel.movies.length,
+                    itemCount: _viewModel.movieHomeDataList.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      final movie = _viewModel.movies[index];
+                      final movie = _viewModel.movieHomeDataList[index];
                       return GestureDetector(
                         onTap: () {
-                          _viewModel.setSelectedMovie(movie);
+                          _viewModel.onFilmClicked(movie);
                           navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
                         },
                         child: Padding(
@@ -162,7 +154,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                             child: Stack(
                               children: [
                                 Image.asset(
-                                  movie.image,
+                                  movie.coverImage,
                                   width: 146,
                                   height: 220,
                                   fit: BoxFit.cover,
@@ -180,7 +172,9 @@ class _HomeTabViewState extends State<HomeTabView> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "  ${movie.rating}",
+                                          "  ${
+                                          movie.rating
+                                        }",
                                           style: TextStyle(color: ColorPalette.white),
                                         ),
                                         SizedBox(width: 7),
