@@ -14,7 +14,6 @@ abstract class ApiNetwork {
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
 
-        // Check if "movies" exists in response
         if (data["data"] != null && data["data"]["movies"] != null) {
           return (data["data"]["movies"] as List)
               .map((movieJson) => Movie.fromJson(movieJson))
@@ -29,6 +28,37 @@ abstract class ApiNetwork {
       throw Exception("Error fetching movies: $error");
     }
   }
+
+  //
+  // static Future<List<Movie>> geMovieDetails() async {
+  //   try{
+  //
+  //   }catch(error){}
+  // }
+
+// In ApiNetwork class
+  static Future<Movie> getMovieDetails(String movieId) async {
+    try {
+      var uri = Uri.parse("${ApiConstants.baseUrl}${EndPoints.listMovies}/$movieId");
+
+      var response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+
+        if (data["data"] != null) {
+          return Movie.fromJson(data["data"]);
+        } else {
+          throw Exception("Movie details not found in API response");
+        }
+      } else {
+        throw Exception("Failed to load movie details: ${response.statusCode}");
+      }
+    } catch (error) {
+      throw Exception("Error fetching movie details: $error");
+    }
+  }
+
 }
 
 

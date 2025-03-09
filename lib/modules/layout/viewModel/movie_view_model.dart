@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:route_movies_app/core/Network/api_Network.dart';
-import 'package:route_movies_app/models/movie_HomeData_model.dart';
 
 import '../../../models/movie_Data.dart';
 
@@ -13,6 +12,7 @@ class MovieViewModel extends ChangeNotifier {
 
   void onFilmClicked(Movie selectedMovie) {
     _selectedMovie = selectedMovie;
+    fetchMovieDetails(selectedMovie.id);
     notifyListeners();
   }
 
@@ -22,6 +22,14 @@ class MovieViewModel extends ChangeNotifier {
       notifyListeners();
     } catch (error) {
       print("Error fetching movies: $error");
+    }
+  }
+  Future<void> fetchMovieDetails(String movieId) async {
+    try {
+      _selectedMovie = await ApiNetwork.getMovieDetails(movieId);
+      notifyListeners();
+    } catch (error) {
+      print("Error fetching movie details: $error");
     }
   }
 }

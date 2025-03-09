@@ -22,12 +22,13 @@ class _HomeTabViewState extends State<HomeTabView> {
 
   @override
   void initState() {
-    _viewModel = Provider.of<MovieViewModel>(context, listen: false);
     super.initState();
-    // Fetch the movie data on init
-    Future.wait([
-      _viewModel.getHomeFilmData()
-    ]);
+    _viewModel = Provider.of<MovieViewModel>(context, listen: false);
+    _viewModel.getHomeFilmData().then((_) {
+      if (_viewModel.selectedMovie != null) {
+        _viewModel.fetchMovieDetails(_viewModel.selectedMovie!.id);
+      }
+    });
   }
 
   @override
@@ -53,16 +54,17 @@ class _HomeTabViewState extends State<HomeTabView> {
                   return GestureDetector(
                     onTap: () {
                       _viewModel.onFilmClicked(movie);
-                      navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails);
-                    },
+                      navigatorKey.currentState!.pushNamed(PagesRouteName.movieDetails,arguments: movie);
+
+                      },
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(20),
                       child: Stack(
                         children: [
                           Image.network(
-                            movie.backgroundImage,
+                            movie.coverImage,
                             fit: BoxFit.fill,
-                            width: double.infinity,
+                            width: 350,
                           ),
                           Positioned(
                             top: 10,
@@ -153,11 +155,11 @@ class _HomeTabViewState extends State<HomeTabView> {
                             borderRadius: BorderRadius.circular(16),
                             child: Stack(
                               children: [
-                                Image.asset(
+                                Image.network(
                                   movie.coverImage,
                                   width: 146,
                                   height: 220,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                 ),
                                 Positioned(
                                   top: 10,

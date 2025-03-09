@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:route_movies_app/core/constants/app_assets.dart';
 import 'package:route_movies_app/core/extensions/extensions.dart';
 import 'package:route_movies_app/core/theme/color_palette.dart';
 import 'package:route_movies_app/core/widgets/custom_elevated_button.dart';
 import 'package:route_movies_app/main.dart';
 
+import '../layout/viewModel/movie_view_model.dart';
 import 'Widgets/castContainerWidget.dart';
 import 'Widgets/containerWidget.dart';
 import '../../core/widgets/filmContainerWidget.dart';
 
 class MovieDetailsView extends StatefulWidget {
+
   const MovieDetailsView({super.key});
 
   @override
@@ -18,9 +21,13 @@ class MovieDetailsView extends StatefulWidget {
 
 class _MovieDetailsViewState extends State<MovieDetailsView> {
 
+
+
   bool isMarked = false;
   @override
   Widget build(BuildContext context) {
+    var _viewModel = Provider.of<MovieViewModel>(context);
+
     var mediaQuery = MediaQuery.sizeOf(context);
     return Scaffold(
       body: SizedBox(
@@ -32,7 +39,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
               height: mediaQuery.height,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(AppAssets.movie_details_bg),
+                  image: NetworkImage(_viewModel.selectedMovie!.backgroundImage),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -73,7 +80,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                   ),
                   SizedBox(height: 195),
                   Text(
-                    "Doctor Strange in the Multiverse of Madness",
+                    _viewModel.selectedMovie!.title,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
