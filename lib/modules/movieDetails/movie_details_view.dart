@@ -39,7 +39,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
               height: mediaQuery.height,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(_viewModel.selectedMovie!.backgroundImage),
+                  image: AssetImage(AppAssets.movie_details_bg),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -159,6 +159,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
 
                           ],
                         ),
+                        SizedBox(height: 15,),
                         Row(
                           children: [
                             ContinerfilmWidget(ImagePathDetails: AppAssets.movie6, rating: '7.7',),
@@ -169,7 +170,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
 
                       ],
                     ),
-                  ),
+                  ).setHorizontalPadding(context, 0.04),
                   SizedBox(height: 18,),
                   Align(
                     alignment: Alignment.centerLeft,
