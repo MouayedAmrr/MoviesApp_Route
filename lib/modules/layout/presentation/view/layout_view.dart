@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../core/constants/app_assets.dart';
-import '../../core/theme/color_palette.dart' show ColorPalette;
-import '../Explore/explore_tab_view.dart';
-import '../Profile/profile_view.dart';
-import '../search/search_tab_view.dart';
+import '../../../../core/constants/app_assets.dart';
+import '../../../../core/theme/color_palette.dart' show ColorPalette;
+import '../../../Explore/explore_tab_view.dart';
+import '../../../Profile/profile_view.dart';
+import '../../../search/search_tab_view.dart';
 import 'home_tab_view.dart'; // Import SearchTabView
 
 class LayoutView extends StatefulWidget {

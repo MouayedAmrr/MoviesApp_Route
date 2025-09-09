@@ -7,7 +7,7 @@ import '../constants/api_constants/end_points.dart';
 abstract class ApiNetwork {
   static Future<List<Movie>> getHomeFilmData() async {
     try {
-      var uri = Uri.parse("${ApiConstants.baseUrl}${EndPoints.listMovies}");
+      var uri = Uri.parse("${ApiConstants.baseurl}${EndPoints.listMovies}");
 
       var response = await http.get(uri);
 
@@ -39,7 +39,7 @@ abstract class ApiNetwork {
 // In ApiNetwork class
   static Future<Movie> getMovieDetails(String movieId) async {
     try {
-      var uri = Uri.parse("${ApiConstants.baseUrl}${EndPoints.listMovies}/$movieId");
+      var uri = Uri.parse("${ApiConstants.baseurl}${EndPoints.listMovies}/$movieId");
 
       var response = await http.get(uri);
 

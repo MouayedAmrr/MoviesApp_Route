@@ -3,7 +3,7 @@ import 'package:route_movies_app/modules/Profile/update_profile_view.dart';
 import 'package:route_movies_app/modules/movieDetails/movie_details_view.dart';
 import 'package:route_movies_app/core/routes/pages_route_name.dart';
 import '../../modules/forgetPassword/forget_password_view.dart';
-import '../../modules/layout/layout_view.dart';
+import '../../modules/layout/presentation/view/layout_view.dart';
 import '../../modules/onBoarding/on_boarding_view.dart';
 import '../../modules/signIn/sign_in_view.dart';
 import '../../modules/signUp/sign_up_view.dart';

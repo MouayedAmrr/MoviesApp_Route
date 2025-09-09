@@ -6,7 +6,7 @@ import 'package:route_movies_app/core/theme/color_palette.dart';
 import 'package:route_movies_app/core/widgets/custom_elevated_button.dart';
 import 'package:route_movies_app/main.dart';
 
-import '../layout/viewModel/movie_view_model.dart';
+import '../layout/presentation/viewModel/movie_view_model.dart';
 import 'Widgets/castContainerWidget.dart';
 import 'Widgets/containerWidget.dart';
 import '../../core/widgets/filmContainerWidget.dart';

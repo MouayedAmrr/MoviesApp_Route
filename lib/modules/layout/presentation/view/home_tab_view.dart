@@ -5,9 +5,9 @@ import 'package:route_movies_app/core/extensions/extensions.dart';
 import 'package:route_movies_app/core/routes/pages_route_name.dart';
 import 'package:route_movies_app/core/theme/color_palette.dart';
 import 'package:route_movies_app/main.dart';
-import 'package:route_movies_app/modules/layout/viewModel/movie_view_model.dart';
 
-import '../../core/constants/app_assets.dart';
+import '../../../../core/constants/app_assets.dart';
+import '../viewModel/movie_view_model.dart';
 
 class HomeTabView extends StatefulWidget {
   const HomeTabView({super.key});

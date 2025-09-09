@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:route_movies_app/core/routes/app_routes.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:route_movies_app/modules/layout/viewModel/movie_view_model.dart';
 
 import 'firebase_options.dart';
+import 'modules/layout/presentation/viewModel/movie_view_model.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
