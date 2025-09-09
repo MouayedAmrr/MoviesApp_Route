@@ -1,12 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:route_movies_app/core/extensions/extensions.dart';
 import 'package:route_movies_app/core/routes/pages_route_name.dart';
 import 'package:route_movies_app/core/theme/color_palette.dart';
 import 'package:route_movies_app/main.dart';
+import 'package:route_movies_app/modules/layout/presentation/viewModel/home_cubit.dart';
 
 import '../../../../core/constants/app_assets.dart';
+import '../viewModel/home_states.dart';
 import '../viewModel/movie_view_model.dart';
 
 class HomeTabView extends StatefulWidget {
@@ -18,21 +21,28 @@ class HomeTabView extends StatefulWidget {
 
 class _HomeTabViewState extends State<HomeTabView> {
   int _currentIndex = 0;
-  late MovieViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
-    _viewModel = Provider.of<MovieViewModel>(context, listen: false);
-    _viewModel.getHomeFilmData().then((_) {
-      if (_viewModel.selectedMovie != null) {
-        _viewModel.fetchMovieDetails(_viewModel.selectedMovie!.id);
-      }
-    });
+    context.read<HomeCubit>().getMoviesList();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    return BlocConsumer<HomeCubit, HomeStates>(listener: (context, state) {
+
+      if(state is HomeErrorState){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errorMsg)));
+      }
+
+    },builder: (context, state){
+      if (state is HomeSuccessState) {
+        final viewModel = state.movieViewModel;
+      }
+    });
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -64,7 +74,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                           Image.network(
                             movie.coverImage,
                             fit: BoxFit.fill,
-                            width: 350,
+                            width: 250,
                           ),
                           Positioned(
                             top: 10,
@@ -98,9 +108,19 @@ class _HomeTabViewState extends State<HomeTabView> {
                   );
                 }).toList(),
                 options: CarouselOptions(
-                  height: 354,
+                  height: 370,
+                  aspectRatio: 0.7,
+                  viewportFraction: 0.64,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: false,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
                   enlargeCenterPage: true,
                   enlargeFactor: 0.3,
+                  scrollDirection: Axis.horizontal,
                   onPageChanged: (index, reason) {
                     setState(() {
                       _currentIndex = index;

@@ -47,6 +47,7 @@ dependencies:
   injectable: ^2.5.1
   get_it: ^8.2.0
   retrofit:
+  flutter_bloc: ^9.1.1
   dio: ^5.9.0
   shared_preferences: ^2.5.3
 
