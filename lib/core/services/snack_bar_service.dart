@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:route_movies_app/core/theme/color_palette.dart';
 
 class SnackBarService {
   static void showSuccessMessage(String msg) {
@@ -8,7 +9,7 @@ class SnackBarService {
     BotToast.showCustomNotification(
       toastBuilder: (void Function() cancelFunc) {
         return Material(
-          color: Colors.white,
+          color: ColorPalette.secondaryColor,
           child: Container(
             width: double.maxFinite,
             height: msg.length > 80 ? 100 : 75,
@@ -174,7 +175,7 @@ class SnackBarService {
     BotToast.showCustomNotification(
       toastBuilder: (void Function() cancelFunc) {
         return Material(
-          color: Colors.white,
+          color: ColorPalette.secondaryColor,
           child: Container(
             width: double.maxFinite,
             height: msg.length > 80 ? 110 : 85,
@@ -184,7 +185,7 @@ class SnackBarService {
               right: 24,
             ),
             decoration: BoxDecoration(
-              color: Colors.white60,
+              color: Colors.white70,
               borderRadius: BorderRadius.circular(12),
             ),
             child: msg.length > 80
