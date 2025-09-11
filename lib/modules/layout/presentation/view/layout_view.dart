@@ -24,7 +24,9 @@ class _LayoutViewState extends State<LayoutView> {
     BlocProvider(
       create:
           (context) =>
-              HomeCubit(getIt<GetMoviesListUseCase>())..getMoviesList(),
+              HomeCubit(getIt<GetMoviesListUseCase>())
+                ..getTopMovies()
+                ..getMoviesByGenre('Drama'),
       child: HomeTabView(),
     ),
     searchTabView(),

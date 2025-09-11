@@ -23,45 +23,47 @@ class _HomeTabViewState extends State<HomeTabView> {
   @override
   void initState() {
     super.initState();
-    context.read<HomeCubit>().getMoviesList();
+    final cubit = context.read<HomeCubit>();
+    cubit.getTopMovies();
+    cubit.getMoviesByGenre("Drama");
   }
+
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeStates>(
+    return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        if (state is HomeErrorState) {
+        if (state.error != null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMsg)),
+            SnackBar(content: Text(state.error!)),
           );
         }
       },
       builder: (context, state) {
-        if (state is HomeLoadingState) {
-          return const Center(child: CircularProgressIndicator());
-        }
+        final topMovies = state.topMovies;
+        final genreMovies = state.genreMovies;
 
-        if (state is HomeSuccessState) {
-          final movies = state.movies;
-
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 890,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(AppAssets.homeview),
-                      fit: BoxFit.fill,
-                    ),
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 890,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AppAssets.homeview),
+                    fit: BoxFit.fill,
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 100),
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 100),
 
+                    if (state.isTopLoading)
+                      const Center(child: CircularProgressIndicator())
+                    else if (topMovies.isNotEmpty)
                       CarouselSlider(
-                        items: movies.map((movie) {
+                        items: topMovies.map((movie) {
                           return GestureDetector(
                             onTap: () {
                               navigatorKey.currentState!.pushNamed(
@@ -87,7 +89,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 4),
                                       decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.6),
+                                        color: ColorPalette.black.withOpacity(0.6),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Row(
@@ -97,7 +99,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                                           Text(
                                             "${movie.rating}",
                                             style: const TextStyle(
-                                              color: Colors.white,
+                                              color: ColorPalette.white,
                                               fontSize: 16,
                                             ),
                                           ),
@@ -126,114 +128,107 @@ class _HomeTabViewState extends State<HomeTabView> {
                         ),
                       ),
 
-                      const SizedBox(height: 160),
+                    const SizedBox(height: 160),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Action",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              context.read<HomeCubit>().getMoviesList(
-                                genre: "comedy",
-                              );
-                            },
-                            child: Row(
-                              children: [
-                                Text(
-                                  "See More ",
-                                  style: TextStyle(
-                                    color: ColorPalette.primaryColor,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward,
-                                  size: 15,
+                    // Genre Movies
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          state.genreName ?? "Movies",
+                          style: const TextStyle(color: ColorPalette.white, fontSize: 20),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.read<HomeCubit>().getMoviesByGenre("Drama");
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                "See More ",
+                                style: TextStyle(
                                   color: ColorPalette.primaryColor,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ).setHorizontalPadding(context, 0.03),
-
-                      const SizedBox(height: 10),
-
-                      SizedBox(
-                        height: 220,
-                        child: ListView.builder(
-                          itemCount: movies.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            final movie = movies[index];
-                            return GestureDetector(
-                              onTap: () {
-                                navigatorKey.currentState!.pushNamed(
-                                  PagesRouteName.movieDetails,
-                                  arguments: movie,
-                                );
-                              },
-                              child: Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: Stack(
-                                    children: [
-                                      Image.network(
-                                        movie.mediumCoverImage ?? "",
-                                        width: 146,
-                                        height: 220,
-                                        fit: BoxFit.fill,
-                                      ),
-                                      Positioned(
-                                        top: 10,
-                                        left: 10,
-                                        child: Container(
-                                          width: 58,
-                                          height: 28,
-                                          decoration: BoxDecoration(
-                                            color:
-                                            Colors.black.withOpacity(0.7),
-                                            borderRadius:
-                                            BorderRadius.circular(16),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "  ${movie.rating}",
-                                                style: TextStyle(
-                                                    color: ColorPalette.white),
-                                              ),
-                                              const SizedBox(width: 7),
-                                              Image.asset(
-                                                  AppAssets.startImageRate),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  fontSize: 16,
                                 ),
                               ),
-                            );
-                          },
+                              Icon(
+                                Icons.arrow_forward,
+                                size: 15,
+                                color: ColorPalette.primaryColor,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        }
+                      ],
+                    ).setHorizontalPadding(context, 0.03),
 
-        // Initial or unknown state
-        return const SizedBox.shrink();
+                    const SizedBox(height: 10),
+
+                    SizedBox(
+                      height: 220,
+                      child: state.isGenreLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : ListView.builder(
+                        itemCount: genreMovies.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final movie = genreMovies[index];
+                          return GestureDetector(
+                            onTap: () {
+                              navigatorKey.currentState!.pushNamed(
+                                PagesRouteName.movieDetails,
+                                arguments: movie,
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Stack(
+                                  children: [
+                                    Image.network(
+                                      movie.mediumCoverImage ?? "",
+                                      width: 146,
+                                      height: 220,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    Positioned(
+                                      top: 10,
+                                      left: 10,
+                                      child: Container(
+                                        width: 58,
+                                        height: 28,
+                                        decoration: BoxDecoration(
+                                          color: ColorPalette.black.withOpacity(0.7),
+                                          borderRadius: BorderRadius.circular(16),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "  ${movie.rating}",
+                                              style: TextStyle(
+                                                  color: ColorPalette.white),
+                                            ),
+                                            const SizedBox(width: 7),
+                                            Image.asset(AppAssets.startImageRate),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }
