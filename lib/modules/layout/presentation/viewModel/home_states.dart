@@ -1,4 +1,6 @@
-import '../../../../models/movie_home_data_model.dart';
+
+
+import '../../domain/entity/movie_entity.dart';
 
 abstract class HomeStates{}
 
@@ -7,8 +9,8 @@ class HomeInitialState extends HomeStates{}
 class HomeLoadingState extends HomeStates{}
 
 class HomeSuccessState extends HomeStates{
-  final MovieHomeData movieHomeData;
-  HomeSuccessState(this.movieHomeData);
+    final List<Movies> movies;
+  HomeSuccessState(this.movies);
 }
 
 class HomeErrorState extends HomeStates{

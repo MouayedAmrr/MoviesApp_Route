@@ -1,7 +1,7 @@
-import '../../../../models/movie_home_data_model.dart';
+import '../models/movie_data_model.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<MovieHomeData> listMovies(
+  Future<MovieDataModel> listMovies(
       {String? genre}
       );
 }

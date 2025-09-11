@@ -1,11 +1,7 @@
-
-
-
-import '../../../../models/movie_home_data_model.dart';
-
+import '../entity/movie_entity.dart';
 
 abstract class HomeRepo {
-  Future<MovieHomeData> listMovies({
+  Future<List<Movies>> listMovies({
     String? genre,
-});
+  });
 }

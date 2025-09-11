@@ -1,18 +1,15 @@
-
-
 import 'package:injectable/injectable.dart';
 
-import '../../../../models/movie_home_data_model.dart';
+import '../entity/movie_entity.dart';
 import '../repo/home_repo.dart';
 
 @lazySingleton
-class GetMoviesListUseCase{
+class GetMoviesListUseCase {
   final HomeRepo _homeRepo;
 
   GetMoviesListUseCase(this._homeRepo);
 
-
-  Future<MovieHomeData> call({String? genre})async{
+  Future<List<Movies>> call({String? genre}) async {
     return await _homeRepo.listMovies(genre: genre);
   }
 }

@@ -22,13 +22,13 @@ class _HomeApiClient implements HomeApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<MovieHomeData> listMovies(String? genre) async {
+  Future<MovieDataModel> listMovies(String? genre) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'genre': genre};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<MovieHomeData>(Options(
+    final _options = _setStreamType<MovieDataModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -45,9 +45,9 @@ class _HomeApiClient implements HomeApiClient {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late MovieHomeData _value;
+    late MovieDataModel _value;
     try {
-      _value = MovieHomeData.fromjson(_result.data!);
+      _value = MovieDataModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

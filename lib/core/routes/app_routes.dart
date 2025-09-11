@@ -60,13 +60,13 @@ abstract class AppRoutes {
           );
         }
 
-      case PagesRouteName.movieDetails:
-        {
-          return MaterialPageRoute(
-            builder: (context) => const MovieDetailsView(),
-            settings: settings,
-          );
-        }
+      // case PagesRouteName.movieDetails:
+      //   {
+      //     return MaterialPageRoute(
+      //       builder: (context) => const MovieDetailsView(),
+      //       settings: settings,
+      //     );
+      //   }
 
       case PagesRouteName.UpdateProfile:
         {

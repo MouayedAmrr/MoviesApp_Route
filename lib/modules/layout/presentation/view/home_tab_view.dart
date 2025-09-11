@@ -42,7 +42,7 @@ class _HomeTabViewState extends State<HomeTabView> {
         }
 
         if (state is HomeSuccessState) {
-          final movies = state.movies.data.movies;
+          final movies = state.movies;
 
           return SingleChildScrollView(
             child: Column(
@@ -137,9 +137,8 @@ class _HomeTabViewState extends State<HomeTabView> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              // refetch only action movies
                               context.read<HomeCubit>().getMoviesList(
-                                genre: "action",
+                                genre: "comedy",
                               );
                             },
                             child: Row(

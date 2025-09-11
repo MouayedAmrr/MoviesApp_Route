@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../constants/api_constants/constants.dart';
+
 
 @module
 abstract class DioModule {
@@ -26,4 +28,6 @@ abstract class DioModule {
     );
     return dio;
   }
+  @Named('baseurl')
+  String get baseUrl => ApiConstants.baseurl;
 }
