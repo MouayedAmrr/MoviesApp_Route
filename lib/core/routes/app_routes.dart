@@ -5,8 +5,6 @@ import 'package:route_movies_app/core/routes/pages_route_name.dart';
 import '../../modules/auth/forgetPassword/forget_password_view.dart';
 import '../../modules/auth/signIn/sign_in_view.dart';
 import '../../modules/auth/signUp/sign_up_view.dart';
-import '../../modules/layout/layout_view.dart';
-import '../../modules/forgetPassword/forget_password_view.dart';
 import '../../modules/layout/presentation/view/layout_view.dart';
 import '../../modules/onBoarding/on_boarding_view.dart';
 import '../../modules/splash/splash_view.dart';
@@ -62,13 +60,13 @@ abstract class AppRoutes {
           );
         }
 
-      case PagesRouteName.movieDetails:
-        {
-          return MaterialPageRoute(
-            builder: (context) => const MovieDetailsView(),
-            settings: settings,
-          );
-        }
+      // case PagesRouteName.movieDetails:
+      //   {
+      //     return MaterialPageRoute(
+      //       builder: (context) => const MovieDetailsView(),
+      //       settings: settings,
+      //     );
+      //   }
 
       case PagesRouteName.UpdateProfile:
         {
