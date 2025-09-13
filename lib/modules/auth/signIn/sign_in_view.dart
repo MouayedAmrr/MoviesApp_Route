@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:route_movies_app/core/extensions/extensions.dart';
-
-import '../../core/constants/app_assets.dart';
-import '../../core/extensions/validations.dart';
-import '../../core/routes/pages_route_name.dart';
-import '../../core/services/firebase_auth_serivce.dart';
-import '../../core/theme/color_palette.dart';
-import '../../core/widgets/custom_text_field.dart';
-import '../../main.dart';
+import '../../../core/constants/app_assets.dart';
+import '../../../core/extensions/validations.dart';
+import '../../../core/routes/pages_route_name.dart';
+import '../../../core/services/firebase_auth_serivce.dart';
+import '../../../core/theme/color_palette.dart';
+import '../../../core/widgets/custom_text_field.dart';
+import '../../../main.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -185,7 +184,7 @@ class _SignInViewState extends State<SignInView> {
                 SizedBox(height: 2,),
                 ElevatedButton(
                   onPressed: () {
-                    FirebaseAuthService.signInWithGoogle();
+                    FirebaseAuthService.signInWithGoogle(avatarUrl: "assets/avatars/avatar_1.png");
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
