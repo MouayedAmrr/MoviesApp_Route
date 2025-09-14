@@ -16,4 +16,9 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   Future<MovieDataModel> listMovies({String? genre}) async{
     return await _homeApiClient.listMovies(genre);
   }
+
+  @override
+  Future<MovieDataModel> searchMovies(String query) async {
+    return await _homeApiClient.searchMovies(query);
+  }
 }

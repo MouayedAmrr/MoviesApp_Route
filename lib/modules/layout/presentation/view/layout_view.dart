@@ -4,10 +4,13 @@ import 'package:route_movies_app/core/config/di.dart';
 import 'package:route_movies_app/modules/layout/presentation/viewModel/home_cubit.dart';
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/theme/color_palette.dart' show ColorPalette;
-import '../../../Explore/explore_tab_view.dart';
+import '../../../Explore/view/explore_tab_view.dart';
+import '../../../Explore/viewmodel/explore_cubit.dart';
 import '../../../Profile/profile_view.dart';
-import '../../../search/search_tab_view.dart';
+import '../../../search/view/search_tab_view.dart';
+import '../../../search/viewmodel/search_cubit.dart';
 import '../../domain/usecase/get_movies_list_usecase.dart';
+import '../../domain/usecase/search_movie_usecase.dart';
 import 'home_tab_view.dart'; // Import SearchTabView
 
 class LayoutView extends StatefulWidget {
@@ -29,8 +32,15 @@ class _LayoutViewState extends State<LayoutView> {
                 ..getMoviesByGenre('Drama'),
       child: HomeTabView(),
     ),
-    searchTabView(),
-    ExploreTabView(),
+    BlocProvider(
+      create: (context) => SearchCubit(getIt<SearchMoviesUseCase>()),
+      child: const SearchTabView(),
+    ),
+    BlocProvider(
+      create: (context) =>
+      ExploreCubit(getIt<GetMoviesListUseCase>())..loadMoviesByGenre("Action"),
+      child: ExploreTabView(),
+    ),
     ProfileView(),
   ];
 

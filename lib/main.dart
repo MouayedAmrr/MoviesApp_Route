@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-      initialRoute: PagesRouteName.layout,
+      initialRoute: PagesRouteName.initial,
       builder: EasyLoading.init(builder: BotToastInit()),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

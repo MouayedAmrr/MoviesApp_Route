@@ -4,4 +4,5 @@ abstract class HomeRemoteDataSource {
   Future<MovieDataModel> listMovies(
       {String? genre}
       );
+  Future<MovieDataModel> searchMovies(String query);
 }

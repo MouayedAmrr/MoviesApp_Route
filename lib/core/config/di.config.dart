@@ -21,6 +21,7 @@ import '../../modules/layout/data/repo_impl/home_repo_impl.dart' as _i978;
 import '../../modules/layout/domain/repo/home_repo.dart' as _i263;
 import '../../modules/layout/domain/usecase/get_movies_list_usecase.dart'
     as _i986;
+import '../../modules/layout/domain/usecase/search_movie_usecase.dart' as _i82;
 import '../../modules/layout/presentation/viewModel/home_cubit.dart' as _i650;
 import 'dio_module/dio_module.dart' as _i484;
 
@@ -52,6 +53,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i978.HomeRepoImpl(gh<_i204.HomeRemoteDataSource>()));
     gh.lazySingleton<_i986.GetMoviesListUseCase>(
         () => _i986.GetMoviesListUseCase(gh<_i263.HomeRepo>()));
+    gh.lazySingleton<_i82.SearchMoviesUseCase>(
+        () => _i82.SearchMoviesUseCase(gh<_i263.HomeRepo>()));
     gh.factory<_i650.HomeCubit>(
         () => _i650.HomeCubit(gh<_i986.GetMoviesListUseCase>()));
     return this;

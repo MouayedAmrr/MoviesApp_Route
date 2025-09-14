@@ -18,4 +18,6 @@ abstract class HomeApiClient {
   @GET(EndPoints.listMovies)
   Future<MovieDataModel> listMovies(@Query('genre') String? genre);
 
+  @GET(EndPoints.listMovies)
+  Future<MovieDataModel> searchMovies(@Query('query_term') String query);
 }
