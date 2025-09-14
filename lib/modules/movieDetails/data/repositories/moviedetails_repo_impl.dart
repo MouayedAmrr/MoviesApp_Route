@@ -25,4 +25,10 @@ class MovieDetailsRepoImpl implements MovieDetailsRepo {
 
     return model.toEntity();
   }
+
+  @override
+  Future<List<MovieDetailsEntity>>getRelatedMovies( String movieId) async {
+    final model = await _remoteDataSource.getRelatedMovies(movieId);
+    return model.map((e) => e.toEntity()).toList();
+  }
 }

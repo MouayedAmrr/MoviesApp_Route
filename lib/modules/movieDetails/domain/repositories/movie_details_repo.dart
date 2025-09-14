@@ -6,4 +6,6 @@ abstract class MovieDetailsRepo {
     bool withImages = true,
     bool withCast = true,
   });
+
+  Future<List<MovieDetailsEntity>> getRelatedMovies(String movieId);
 }

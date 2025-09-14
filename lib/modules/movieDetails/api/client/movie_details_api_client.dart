@@ -4,8 +4,9 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
 import '../../../../core/constants/api_constants/end_points.dart';
-import '../../data/models/movie_details_model.dart';
+
 import '../../data/models/movie_details_response.dart';
+import '../../data/models/related_movies_response_model.dart';
 
 part 'movie_details_api_client.g.dart';
 
@@ -21,6 +22,9 @@ abstract class MovieDetailsApiClient {
       @Query('with_images') bool? withImages,
       @Query('with_cast') bool? withCast,
       );
+
+  @GET(EndPoints.relatedMovies)
+  Future<RelatedMoviesResponse> getRelatedMovies(@Query('movie_id') String movieId);
 
 
 }

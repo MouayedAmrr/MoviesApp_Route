@@ -18,6 +18,7 @@ MovieDetailsModel _$MovieDetailsModelFromJson(Map<String, dynamic> json) =>
       year: (json['year'] as num?)?.toInt(),
       rating: (json['rating'] as num?)?.toDouble(),
       runtime: (json['runtime'] as num?)?.toInt(),
+      summary: json['summary'] as String?,
       genres:
           (json['genres'] as List<dynamic>?)?.map((e) => e as String).toList(),
       likeCount: (json['like_count'] as num?)?.toInt(),
@@ -66,6 +67,7 @@ Map<String, dynamic> _$MovieDetailsModelToJson(MovieDetailsModel instance) =>
       'small_cover_image': instance.smallCoverImage,
       'medium_cover_image': instance.mediumCoverImage,
       'large_cover_image': instance.largeCoverImage,
+      'summary': instance.summary,
       'medium_screenshot_image1': instance.mediumScreenshot1,
       'medium_screenshot_image2': instance.mediumScreenshot2,
       'medium_screenshot_image3': instance.mediumScreenshot3,

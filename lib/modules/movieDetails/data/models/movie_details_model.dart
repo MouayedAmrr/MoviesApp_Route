@@ -50,7 +50,8 @@ class MovieDetailsModel {
   final String? mediumCoverImage;
   @JsonKey(name: "large_cover_image")
   final String? largeCoverImage;
-
+  @JsonKey(name: "summary")
+  final String? summary;
   @JsonKey(name: "medium_screenshot_image1")
   final String? mediumScreenshot1;
   @JsonKey(name: "medium_screenshot_image2")
@@ -78,6 +79,7 @@ class MovieDetailsModel {
     this.year,
     this.rating,
     this.runtime,
+    this.summary,
     this.genres,
     this.likeCount,
     this.descriptionIntro,

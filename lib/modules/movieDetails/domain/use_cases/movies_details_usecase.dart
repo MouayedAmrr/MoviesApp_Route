@@ -20,4 +20,8 @@ class GetMovieDetailsUseCase {
       withCast: withCast,
     );
   }
+
+  Future<List<MovieDetailsEntity>> getRelatedMovies(String movieId) async {
+    return await _repository.getRelatedMovies(movieId);
+  }
 }

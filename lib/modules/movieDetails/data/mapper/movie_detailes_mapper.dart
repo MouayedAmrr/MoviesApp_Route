@@ -16,6 +16,7 @@ extension MovieDetailsMapper on MovieDetailsModel {
       rating: rating?.toDouble() ?? 0.0,
       runtime: runtime ?? 0,
       genres: genres ?? [],
+      summary: summary ?? '',
       likeCount: likeCount ?? 0,
       descriptionIntro: descriptionIntro ?? '',
       descriptionFull: descriptionFull ?? '',

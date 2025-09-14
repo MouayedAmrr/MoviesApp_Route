@@ -8,10 +8,11 @@ import 'package:route_movies_app/main.dart';
 import 'package:route_movies_app/modules/moviedetails/presentation/viewmodel/movie_details_states.dart';
 import '../../../../core/widgets/filmContainerWidget.dart';
 import '../viewmodel/movie_details_cubit.dart';
+import '../viewmodel/related_movie_states.dart';
+import '../viewmodel/relates_movies_cubit.dart';
 import '../widgets/cast_container_widget.dart';
 import '../widgets/container_widget.dart';
 
-import 'package:route_movies_app/modules/layout/domain/entity/movie_entity.dart';
 
 class MovieDetailsView extends StatefulWidget {
   final String movieId;
@@ -29,6 +30,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
   void initState() {
     super.initState();
     context.read<MovieDetailsCubit>().getMovieDetails(widget.movieId);
+    context.read<RelatedMoviesCubit>().getRelatedMovies(widget.movieId);
   }
 
   @override
@@ -183,42 +185,42 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                             ),
                           ).setHorizontalPadding(context, 0.035),
                           SizedBox(height: 18),
-                          Container(
-                            width: 399,
-                            height: 600,
 
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    ContinerfilmWidget(
-                                      ImagePathDetails: AppAssets.movie4,
+                          BlocBuilder<RelatedMoviesCubit, RelatedMoviesState>(
+                            builder: (context, state) {
+                              if (state is RelatedMoviesLoadingState) {
+                                return const Center(child: CircularProgressIndicator());
+                              }
+                              if (state is RelatedMoviesErrorState) {
+                                return Center(child: Text(state.message, style: TextStyle(color: Colors.red)));
+                              }
+                              if (state is RelatedMoviesSuccessState) {
+                                final relatedMovies = state.relatedMovies;
+
+                                return GridView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  itemCount: relatedMovies.length > 4 ? 4 : relatedMovies.length,
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,   // 2 items per row
+                                    crossAxisSpacing: 12,
+                                    mainAxisSpacing: 12,
+                                    childAspectRatio: 0.65, // adjust to make height look nice
+                                  ),
+                                  itemBuilder: (context, index) {
+                                    final movie = relatedMovies[index];
+                                    return ContinerfilmWidget(
+                                      ImagePathDetails: movie.mediumCoverImage,
                                       rating: movie.rating.toString(),
-                                    ),
-                                    SizedBox(width: 15),
-                                    ContinerfilmWidget(
-                                      ImagePathDetails: AppAssets.movie5,
-                                      rating: movie.rating.toString(),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 15),
-                                Row(
-                                  children: [
-                                    ContinerfilmWidget(
-                                      ImagePathDetails: AppAssets.movie6,
-                                      rating: movie.rating.toString(),
-                                    ),
-                                    SizedBox(width: 15),
-                                    ContinerfilmWidget(
-                                      ImagePathDetails: AppAssets.movie3,
-                                      rating: movie.rating.toString(),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ).setHorizontalPadding(context, 0.04),
+                                    );
+                                  },
+                                );
+                              }
+                              return const SizedBox.shrink();
+                            },
+                          ),
+
                           SizedBox(height: 18),
                           Align(
                             alignment: Alignment.centerLeft,
@@ -233,7 +235,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                           ).setHorizontalPadding(context, 0.035),
                           SizedBox(height: 18),
                           Text(
-                                movie.descriptionFull,
+                                movie.summary,
                             style: TextStyle(
                               fontSize: 16,
                               color: ColorPalette.white,

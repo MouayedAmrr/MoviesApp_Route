@@ -18,6 +18,7 @@ class MovieDetailsEntity {
   final String ytTrailerCode;
   final String language;
   final String mpaRating;
+  final String summary;
   final String backgroundImage;
   final String backgroundImageOriginal;
   final String smallCoverImage;
@@ -45,6 +46,7 @@ class MovieDetailsEntity {
     required this.runtime,
     required this.genres,
     required this.likeCount,
+    required this.summary,
     required this.descriptionIntro,
     required this.descriptionFull,
     required this.ytTrailerCode,

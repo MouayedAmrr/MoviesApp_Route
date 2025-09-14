@@ -36,6 +36,8 @@ import '../../modules/moviedetails/domain/use_cases/movies_details_usecase.dart'
     as _i533;
 import '../../modules/moviedetails/presentation/viewmodel/movie_details_cubit.dart'
     as _i884;
+import '../../modules/moviedetails/presentation/viewmodel/relates_movies_cubit.dart'
+    as _i218;
 import 'dio_module/dio_module.dart' as _i484;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -77,6 +79,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i533.GetMovieDetailsUseCase(gh<_i175.MovieDetailsRepo>()));
     gh.factory<_i884.MovieDetailsCubit>(
         () => _i884.MovieDetailsCubit(gh<_i533.GetMovieDetailsUseCase>()));
+    gh.factory<_i218.RelatedMoviesCubit>(
+        () => _i218.RelatedMoviesCubit(gh<_i533.GetMovieDetailsUseCase>()));
     gh.lazySingleton<_i986.GetMoviesListUseCase>(
         () => _i986.GetMoviesListUseCase(gh<_i263.HomeRepo>()));
     gh.factory<_i650.HomeCubit>(

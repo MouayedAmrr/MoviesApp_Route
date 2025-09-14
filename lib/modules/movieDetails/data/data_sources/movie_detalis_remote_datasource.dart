@@ -1,3 +1,4 @@
+import '../../domain/entities/movie_details_entity.dart';
 import '../models/movie_details_model.dart';
 
 abstract class MovieDetailsRemoteDataSource {
@@ -6,4 +7,6 @@ abstract class MovieDetailsRemoteDataSource {
     bool? withImages,
     bool? withCast,
   );
+
+  Future<List<MovieDetailsModel>> getRelatedMovies(String movieId);
 }

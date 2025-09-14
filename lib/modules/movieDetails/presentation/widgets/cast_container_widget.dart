@@ -17,12 +17,12 @@ class CastContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 389,
+      width: double.infinity,
       height: 92,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Color(0xFF282A28),
+        color: const Color(0xFF282A28),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,33 +34,47 @@ class CastContainer extends StatelessWidget {
               width: 70,
               height: 70,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  'assets/images/nophoto.jpg',
+                  width: 70,
+                  height: 70,
+                  fit: BoxFit.cover,
+                );
+              },
             ),
           ),
-          SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Name: $name",
-                style: TextStyle(
-                  color: ColorPalette.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Name: $name",
+                  style: const TextStyle(
+                    color: ColorPalette.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
-              ),
-              SizedBox(height: 5),
-              Text(
-                "Character: $character",
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 14,
+                const SizedBox(height: 5),
+                Text(
+                  "Character: $character",
+                  style: const TextStyle(
+                    color: ColorPalette.white,
+                    fontSize: 14,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
-    );
+    ).setHorizontalPadding(context, 0.03);
   }
 }

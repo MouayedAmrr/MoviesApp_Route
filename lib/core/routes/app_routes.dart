@@ -6,6 +6,7 @@ import 'package:route_movies_app/modules/moviedetails/domain/use_cases/movies_de
 import '../../modules/forgetPassword/forget_password_view.dart';
 import '../../modules/layout/presentation/view/layout_view.dart';
 import '../../modules/moviedetails/presentation/viewmodel/movie_details_cubit.dart';
+import '../../modules/moviedetails/presentation/viewmodel/relates_movies_cubit.dart';
 import '../../modules/moviedetails/presentation/views/movie_details_view.dart';
 import '../../modules/onBoarding/on_boarding_view.dart';
 import '../../modules/signIn/sign_in_view.dart';
@@ -67,12 +68,20 @@ abstract class AppRoutes {
 
       case PagesRouteName.movieDetails:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (_) => getIt<MovieDetailsCubit>(),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => getIt<MovieDetailsCubit>(),
+              ),
+              BlocProvider(
+                create: (_) => getIt<RelatedMoviesCubit>(),
+              ),
+            ],
             child: MovieDetailsView(movieId: settings.arguments as String),
           ),
           settings: settings,
         );
+
 
       case PagesRouteName.UpdateProfile:
         {

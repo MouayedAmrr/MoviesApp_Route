@@ -1,6 +1,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:route_movies_app/modules/moviedetails/presentation/viewmodel/related_movie_states.dart';
 
 import '../../domain/use_cases/movies_details_usecase.dart';
 import 'movie_details_states.dart';
@@ -23,5 +24,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
 
     }
   }
+
+
 
 }
