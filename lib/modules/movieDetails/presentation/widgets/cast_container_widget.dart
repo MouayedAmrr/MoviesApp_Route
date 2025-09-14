@@ -29,7 +29,7 @@ class CastContainer extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
+            child: Image.network(
               imagepath,
               width: 70,
               height: 70,
