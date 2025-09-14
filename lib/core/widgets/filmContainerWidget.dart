@@ -14,7 +14,7 @@ class ContinerfilmWidget extends StatelessWidget {
 
     return  Stack(
       children: [
-        Image.asset(
+        Image.network(
           ImagePathDetails,
           width: 180,
           height: 280,
@@ -34,7 +34,7 @@ class ContinerfilmWidget extends StatelessWidget {
             child: Row(
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(" 7.7", style: TextStyle(color: ColorPalette.white, fontSize: 16, fontWeight: FontWeight.w500),),
+                Text(rating, style: TextStyle(color: ColorPalette.white, fontSize: 16, fontWeight: FontWeight.w500),),
                 SizedBox(width: 7,),
                 Image.asset(AppAssets.startImageRate),
               ],
