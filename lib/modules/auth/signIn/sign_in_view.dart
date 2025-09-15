@@ -94,19 +94,17 @@ class _SignInViewState extends State<SignInView> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       FirebaseAuthService.login(
-                          emailAddress: _emailController.text,
-                          password: _passwordController.text)
-                          .then(
-                            (value) {
-                          EasyLoading.dismiss();
-                          if (value) {
-                            navigatorKey.currentState!.pushNamedAndRemoveUntil(
-                              PagesRouteName.layout,
-                                  (route) => false,
-                            );
-                          }
-                        },
-                      );
+                        emailAddress: _emailController.text,
+                        password: _passwordController.text,
+                      ).then((value) {
+                        EasyLoading.dismiss();
+                        if (value) {
+                          navigatorKey.currentState!.pushNamedAndRemoveUntil(
+                            PagesRouteName.layout,
+                            (route) => false,
+                          );
+                        }
+                      });
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -181,10 +179,12 @@ class _SignInViewState extends State<SignInView> {
                     ),
                   ],
                 ).setVerticalPadding(context, 0.02),
-                SizedBox(height: 2,),
+                SizedBox(height: 2),
                 ElevatedButton(
                   onPressed: () {
-                    FirebaseAuthService.signInWithGoogle(avatarUrl: "assets/avatars/avatar_1.png");
+                    FirebaseAuthService.signInWithGoogle(
+                      avatarUrl: "assets/avatars/avatar_1.png",
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 0,

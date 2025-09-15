@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:route_movies_app/core/extensions/extensions.dart';
@@ -245,7 +244,6 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                                               PagesRouteName.movieDetails,
                                               arguments: movie.id.toString(),
                                             );
-
                                           },
                                           child: ContinerfilmWidget(
                                             ImagePathDetails:

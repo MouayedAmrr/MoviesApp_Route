@@ -1,4 +1,4 @@
-import '../../layout/domain/entity/movie_entity.dart';
+import '../../domain/entity/movie_entity.dart';
 
 abstract class ExploreState {}
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/constants/app_assets.dart';
-import '../../../core/theme/color_palette.dart';
-import '../../../core/widgets/custom_text_field.dart';
+import '../../../../core/constants/app_assets.dart';
+import '../../../../core/routes/pages_route_name.dart';
+import '../../../../core/theme/color_palette.dart';
+import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../main.dart';
 import '../viewmodel/search_cubit.dart';
 import '../viewmodel/search_states.dart';
 
@@ -66,10 +68,10 @@ class SearchTabView extends StatelessWidget {
                         final movie = state.movies[index];
                         return GestureDetector(
                           onTap: () {
-                            // navigatorKey.currentState!.pushNamed(
-                            //   PagesRouteName.movieDetails,
-                            //   arguments: movie,
-                            // );
+                            navigatorKey.currentState!.pushNamed(
+                              PagesRouteName.movieDetails,
+                              arguments: movie.id.toString(),
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(

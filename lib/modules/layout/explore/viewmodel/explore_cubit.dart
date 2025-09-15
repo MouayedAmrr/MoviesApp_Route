@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../layout/domain/usecase/get_movies_list_usecase.dart';
+import '../../domain/usecase/get_movies_list_usecase.dart';
 import 'explore_states.dart';
-
 
 class ExploreCubit extends Cubit<ExploreState> {
   final GetMoviesListUseCase getMoviesListUseCase;

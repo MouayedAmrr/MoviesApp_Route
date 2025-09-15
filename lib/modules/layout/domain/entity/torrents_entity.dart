@@ -1,4 +1,3 @@
-
 class Torrents {
   final String? url;
   final String? hash;

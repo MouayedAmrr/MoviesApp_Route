@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:route_movies_app/core/extensions/extensions.dart';
 import 'package:route_movies_app/core/theme/color_palette.dart';
 import 'package:route_movies_app/core/widgets/custom_elevated_button.dart';
-import '../../core/routes/pages_route_name.dart';
-import '../../core/widgets/custom_text_field.dart';
+import '../../../core/routes/pages_route_name.dart';
+import '../../../core/widgets/custom_text_field.dart';
 
 class UpdateProfileView extends StatefulWidget {
   const UpdateProfileView({super.key});
@@ -42,7 +42,7 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
       final doc =
-      await FirebaseFirestore.instance.collection("users").doc(uid).get();
+          await FirebaseFirestore.instance.collection("users").doc(uid).get();
       if (doc.exists) {
         final data = doc.data()!;
         _nameController.text = data["name"] ?? "";
@@ -83,13 +83,13 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
         Navigator.pushNamedAndRemoveUntil(
           context,
           PagesRouteName.signIn,
-              (route) => false,
+          (route) => false,
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error deleting account: $e")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error deleting account: $e")));
     }
   }
 
@@ -123,9 +123,10 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: isSelected
-                          ? ColorPalette.primaryColor
-                          : Colors.transparent,
+                      color:
+                          isSelected
+                              ? ColorPalette.primaryColor
+                              : Colors.transparent,
                       width: 3,
                     ),
                     borderRadius: BorderRadius.circular(12),
@@ -149,8 +150,10 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
       appBar: AppBar(
         backgroundColor: ColorPalette.bgcolor,
         foregroundColor: ColorPalette.primaryColor,
-        title: Text("Update Profile",
-            style: TextStyle(color: ColorPalette.primaryColor)),
+        title: Text(
+          "Update Profile",
+          style: TextStyle(color: ColorPalette.primaryColor),
+        ),
         centerTitle: true,
       ),
       body: Column(
@@ -169,7 +172,10 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
           CustomTextField(
             controller: _nameController,
             hint: "Name",
-            textStyle: const TextStyle(fontWeight: FontWeight.w600,color: Colors.white),
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
             iconColor: ColorPalette.white,
             hintColor: ColorPalette.white,
             prefixIcon: const Icon(Icons.person),
@@ -179,7 +185,10 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
           CustomTextField(
             controller: _phoneController,
             hint: "Phone Number",
-            textStyle: const TextStyle(fontWeight: FontWeight.w600,color: Colors.white),
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
             iconColor: ColorPalette.white,
             hintColor: ColorPalette.white,
             prefixIcon: const Icon(Icons.phone),

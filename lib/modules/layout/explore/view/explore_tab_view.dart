@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:route_movies_app/core/theme/color_palette.dart';
-import 'package:route_movies_app/modules/Explore/viewmodel/explore_cubit.dart';
-import 'package:route_movies_app/modules/Explore/viewmodel/explore_states.dart';
-import '../../../core/constants/app_assets.dart';
-import '../../../core/routes/pages_route_name.dart';
-import '../../../core/widgets/filmContainerWidget.dart';
-import '../../../main.dart';
+import '../../../../core/constants/app_assets.dart';
+import '../../../../core/routes/pages_route_name.dart';
+import '../../../../main.dart';
+import '../viewmodel/explore_cubit.dart';
+import '../viewmodel/explore_states.dart';
 
 class ExploreTabView extends StatefulWidget {
   const ExploreTabView({super.key});
@@ -144,13 +143,16 @@ class _ExploreTabViewState extends State<ExploreTabView>
                       final movie = state.movies[index];
                       return GestureDetector(
                         onTap: () {
-                          // navigatorKey.currentState!.pushNamed(
-                          //   PagesRouteName.movieDetails,
-                          //   arguments: movie,
-                          // );
+                          navigatorKey.currentState!.pushNamed(
+                            PagesRouteName.movieDetails,
+                            arguments: movie.id.toString(),
+                          );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 10,
+                          ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: Stack(
@@ -168,7 +170,9 @@ class _ExploreTabViewState extends State<ExploreTabView>
                                     width: 58,
                                     height: 28,
                                     decoration: BoxDecoration(
-                                      color: ColorPalette.black.withOpacity(0.7),
+                                      color: ColorPalette.black.withOpacity(
+                                        0.7,
+                                      ),
                                       borderRadius: BorderRadius.circular(16),
                                     ),
                                     child: Row(
@@ -176,7 +180,8 @@ class _ExploreTabViewState extends State<ExploreTabView>
                                         Text(
                                           "  ${movie.rating}",
                                           style: TextStyle(
-                                              color: ColorPalette.white),
+                                            color: ColorPalette.white,
+                                          ),
                                         ),
                                         const SizedBox(width: 7),
                                         Image.asset(AppAssets.startImageRate),

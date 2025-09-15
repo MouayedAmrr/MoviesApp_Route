@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:route_movies_app/modules/search/viewmodel/search_states.dart';
-import '../../layout/domain/entity/movie_entity.dart';
-import '../../layout/domain/usecase/search_movie_usecase.dart';
+import 'package:route_movies_app/modules/layout/search/viewmodel/search_states.dart';
+import '../../domain/entity/movie_entity.dart';
+import '../../domain/usecase/search_movie_usecase.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   final SearchMoviesUseCase _searchMoviesUseCase;
