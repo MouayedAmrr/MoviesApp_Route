@@ -16,4 +16,10 @@ class HomeRepoImpl implements HomeRepo {
 
     return response.data?.movies?.map((m) => m.toEntity()).toList() ?? [];
   }
+
+  @override
+  Future<List<Movies>> searchMovies(String query) async {
+    final response = await _homeRemoteDataSource.searchMovies(query);
+    return response.data?.movies?.map((m) => m.toEntity()).toList() ?? [];
+  }
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:injectable/injectable.dart';
 
 import '../../data/data_sources/movie_detalis_remote_datasource.dart';
@@ -14,10 +12,10 @@ class MovieDetailsRemoteDataSourceImpl implements MovieDetailsRemoteDataSource {
 
   @override
   Future<MovieDetailsModel> getMovieDetails(
-      String movieId,
-      bool? withImages,
-      bool? withCast,
-      ) async {
+    String movieId,
+    bool? withImages,
+    bool? withCast,
+  ) async {
     final response = await movieDetailsApiClient.getMovieDetails(
       movieId,
       withImages,
@@ -31,6 +29,4 @@ class MovieDetailsRemoteDataSourceImpl implements MovieDetailsRemoteDataSource {
     final response = await movieDetailsApiClient.getRelatedMovies(movieId);
     return response.data.movies;
   }
-
 }
-

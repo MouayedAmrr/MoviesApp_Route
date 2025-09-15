@@ -26,5 +26,3 @@ class MovieDetailsData {
 
   Map<String, dynamic> toJson() => _$MovieDetailsDataToJson(this);
 }
-
-

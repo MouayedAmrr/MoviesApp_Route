@@ -1,8 +1,5 @@
 import 'package:route_movies_app/modules/layout/domain/entity/torrents_entity.dart';
 
-
-
-
 class Movies {
   final int? id;
   final String? url;
@@ -60,4 +57,3 @@ class Movies {
     this.dateUploadedUnix,
   });
 }
-

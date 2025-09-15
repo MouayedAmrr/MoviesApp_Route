@@ -1,5 +1,3 @@
-
-
 import 'package:route_movies_app/modules/moviedetails/domain/entities/movie_details_entity.dart';
 
 abstract class MovieDetailsRepo {

@@ -5,9 +5,5 @@ class MovieData {
   final String? statusMessage;
   final Data? data;
 
-  MovieData({
-    this.status,
-    this.statusMessage,
-    this.data,
-  });
+  MovieData({this.status, this.statusMessage, this.data});
 }

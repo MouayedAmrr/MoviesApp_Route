@@ -1,5 +1,3 @@
-
-
 import 'package:injectable/injectable.dart';
 import 'package:route_movies_app/modules/moviedetails/data/mapper/movie_detailes_mapper.dart';
 
@@ -29,7 +27,7 @@ class MovieDetailsRepoImpl implements MovieDetailsRepo {
   }
 
   @override
-  Future<List<MovieDetailsEntity>>getRelatedMovies( String movieId) async {
+  Future<List<MovieDetailsEntity>> getRelatedMovies(String movieId) async {
     final model = await _remoteDataSource.getRelatedMovies(movieId);
     return model.map((e) => e.toEntity()).toList();
   }

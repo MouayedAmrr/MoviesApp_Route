@@ -10,9 +10,10 @@ MovieDataModel _$MovieDataModelFromJson(Map<String, dynamic> json) =>
     MovieDataModel(
       status: json['status'] as String?,
       statusMessage: json['status_message'] as String?,
-      data: json['data'] == null
-          ? null
-          : DataModel.fromJson(json['data'] as Map<String, dynamic>),
+      data:
+          json['data'] == null
+              ? null
+              : DataModel.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MovieDataModelToJson(MovieDataModel instance) =>

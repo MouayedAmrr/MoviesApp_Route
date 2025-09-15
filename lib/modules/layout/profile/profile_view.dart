@@ -5,7 +5,7 @@ import 'package:route_movies_app/core/extensions/extensions.dart';
 import 'package:route_movies_app/core/routes/pages_route_name.dart';
 import 'package:route_movies_app/core/theme/color_palette.dart';
 import 'package:route_movies_app/main.dart';
-import '../../core/widgets/custom_elevated_button.dart';
+import '../../../core/widgets/custom_elevated_button.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -20,7 +20,11 @@ class ProfileView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: ColorPalette.bgcolor,
         body: StreamBuilder<DocumentSnapshot>(
-          stream: FirebaseFirestore.instance.collection("users").doc(uid).snapshots(),
+          stream:
+              FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(uid)
+                  .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -28,7 +32,7 @@ class ProfileView extends StatelessWidget {
 
             var userData = snapshot.data!;
             String userName = userData["name"] ?? "Unknown";
-            String? photoUrl =userData["avatar"];
+            String? photoUrl = userData["avatar"];
 
             return Column(
               children: [
@@ -45,26 +49,27 @@ class ProfileView extends StatelessWidget {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(75),
-                                child: photoUrl != null && photoUrl.isNotEmpty
-                                    ? (photoUrl.startsWith("http")
-                                    ? Image.network(
-                                  photoUrl,
-                                  width: 150,
-                                  height: 150,
-                                  fit: BoxFit.cover,
-                                )
-                                    : Image.asset(
-                                  photoUrl,
-                                  width: 150,
-                                  height: 150,
-                                  fit: BoxFit.cover,
-                                ))
-                                    : Image.asset(
-                                  "assets/images/profileImage.png",
-                                  width: 150,
-                                  height: 150,
-                                  fit: BoxFit.cover,
-                                ),
+                                child:
+                                    photoUrl != null && photoUrl.isNotEmpty
+                                        ? (photoUrl.startsWith("http")
+                                            ? Image.network(
+                                              photoUrl,
+                                              width: 150,
+                                              height: 150,
+                                              fit: BoxFit.cover,
+                                            )
+                                            : Image.asset(
+                                              photoUrl,
+                                              width: 150,
+                                              height: 150,
+                                              fit: BoxFit.cover,
+                                            ))
+                                        : Image.asset(
+                                          "assets/images/profileImage.png",
+                                          width: 150,
+                                          height: 150,
+                                          fit: BoxFit.cover,
+                                        ),
                               ),
                               const SizedBox(height: 15),
                               Text(
@@ -76,7 +81,11 @@ class ProfileView extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          ).setHorizontalAndVerticalPadding(context, 0.06, 0.07),
+                          ).setHorizontalAndVerticalPadding(
+                            context,
+                            0.06,
+                            0.07,
+                          ),
 
                           // wish list column
                           Column(
@@ -142,7 +151,9 @@ class ProfileView extends StatelessWidget {
                                 titleColor: ColorPalette.black,
                                 borderRadius: 15,
                                 onTap: () {
-                                  navigatorKey.currentState!.pushNamed(PagesRouteName.UpdateProfile);
+                                  navigatorKey.currentState!.pushNamed(
+                                    PagesRouteName.UpdateProfile,
+                                  );
                                 },
                               ),
                             ),
@@ -156,7 +167,10 @@ class ProfileView extends StatelessWidget {
                               child: CustomElevatedButton(
                                 onTap: () {
                                   FirebaseAuth.instance.signOut();
-                                  Navigator.pushReplacementNamed(context, PagesRouteName.signIn);
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    PagesRouteName.signIn,
+                                  );
                                 },
                                 title: 'Exit',
                                 titleSize: 18,
@@ -174,23 +188,43 @@ class ProfileView extends StatelessWidget {
                       TabBar(
                         indicatorColor: Colors.transparent,
                         labelColor: ColorPalette.primaryColor,
-                        labelStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        labelStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                         indicator: UnderlineTabIndicator(
-                          borderSide: BorderSide(width: 4.0, color: ColorPalette.primaryColor),
+                          borderSide: BorderSide(
+                            width: 4.0,
+                            color: ColorPalette.primaryColor,
+                          ),
                         ),
                         tabs: const [
                           Tab(
-                            icon: Icon(Icons.list, color: ColorPalette.primaryColor, size: 40),
+                            icon: Icon(
+                              Icons.list,
+                              color: ColorPalette.primaryColor,
+                              size: 40,
+                            ),
                             child: Text(
                               "Watch List",
-                              style: TextStyle(fontSize: 20, color: Colors.white),
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                           Tab(
-                            icon: Icon(Icons.folder, color: ColorPalette.primaryColor, size: 40),
+                            icon: Icon(
+                              Icons.folder,
+                              color: ColorPalette.primaryColor,
+                              size: 40,
+                            ),
                             child: Text(
                               "History",
-                              style: TextStyle(fontSize: 20, color: Colors.white),
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ],
@@ -203,11 +237,19 @@ class ProfileView extends StatelessWidget {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      Center(child: Image.asset("assets/images/search_image_tab.png")),
-                      Center(child: Image.asset("assets/images/search_image_tab.png")),
+                      Center(
+                        child: Image.asset(
+                          "assets/images/search_image_tab.png",
+                        ),
+                      ),
+                      Center(
+                        child: Image.asset(
+                          "assets/images/search_image_tab.png",
+                        ),
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             );
           },

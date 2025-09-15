@@ -5,7 +5,7 @@ abstract class AppAssets {
   static const String phoneIcn = "assets/icons/PhoneIcn.png";
   static const String passwordIcn = "assets/icons/passwordIcn.png";
   static const String identIcn = "assets/icons/IdentificationIcn.png";
-  static const String forgetPasswordImg= "assets/images/forgetPasswordImg.png";
+  static const String forgetPasswordImg = "assets/images/forgetPasswordImg.png";
   static const String forgetPassIcn = "assets/icons/ForgetPassIcn.png";
   static const String onboardFirstImg = "assets/images/Onboard1.png";
   static const String onboardSecondImg = "assets/images/Onboard2.png";
@@ -20,14 +20,19 @@ abstract class AppAssets {
   static const String ProfileTabIcon = "assets/icons/ProfielTabIcon.png";
   static const String searchTabImage = "assets/icons/ProfielTabIcon.png";
   static const String startImageRate = "assets/images/startImageRate.png";
-  static const String movie_details_bg = "assets/images/Movie_Details_image.png";
-  static const String playMovieImage = "assets/images/play_image_moviredetails.png";
+  static const String movie_details_bg =
+      "assets/images/Movie_Details_image.png";
+  static const String playMovieImage =
+      "assets/images/play_image_moviredetails.png";
   static const String favIcon = "assets/icons/favIcon.png";
   static const String timeIcon = "assets/icons/TimeIcon.png";
   static const String RatingIcon = "assets/icons/RatingIcon.png";
-  static const String screenShotMovieDetails1 = "assets/images/large-screenshot1.png";
-  static const String screenShotMovieDetails2 = "assets/images/large-screenshot2.png";
-  static const String screenShotMovieDetails3 = "assets/images/large-screenshot3.png";
+  static const String screenShotMovieDetails1 =
+      "assets/images/large-screenshot1.png";
+  static const String screenShotMovieDetails2 =
+      "assets/images/large-screenshot2.png";
+  static const String screenShotMovieDetails3 =
+      "assets/images/large-screenshot3.png";
   static const String movie1 = "assets/images/moviephoto.png";
   static const String movie2 = "assets/images/movie2.png";
   static const String movie3 = "assets/images/movie3.png";
