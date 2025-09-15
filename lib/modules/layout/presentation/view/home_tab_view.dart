@@ -25,7 +25,12 @@ class _HomeTabViewState extends State<HomeTabView> {
     super.initState();
     final cubit = context.read<HomeCubit>();
     cubit.getTopMovies();
-    cubit.getMoviesByGenre("Drama");
+    cubit.startRotatingGenres();
+  }
+  @override
+  void dispose() {
+    context.read<HomeCubit>().stopGenrePolling();
+    super.dispose();
   }
 
 
@@ -68,7 +73,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                             onTap: () {
                               navigatorKey.currentState!.pushNamed(
                                 PagesRouteName.movieDetails,
-                                arguments: movie,
+                                arguments: movie.id.toString(),
                               );
                             },
                             child: ClipRRect(
@@ -130,7 +135,6 @@ class _HomeTabViewState extends State<HomeTabView> {
 
                     const SizedBox(height: 160),
 
-                    // Genre Movies
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -140,7 +144,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            context.read<HomeCubit>().getMoviesByGenre("Drama");
+                            context.read<HomeCubit>().startRotatingGenres();
                           },
                           child: Row(
                             children: [
@@ -177,7 +181,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                             onTap: () {
                               navigatorKey.currentState!.pushNamed(
                                 PagesRouteName.movieDetails,
-                                arguments: movie,
+                                arguments: movie.id.toString(),
                               );
                             },
                             child: Padding(
