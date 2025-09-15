@@ -313,29 +313,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                                     )
                                     .toList(),
                           ),
-                          // CastContainer(
-                          //   name: ' Hayley Atwell',
-                          //   character: 'Captain Carter',
-                          //   imagepath: AppAssets.actor1,
-                          // ),
-                          // SizedBox(height: 12),
-                          // CastContainer(
-                          //   name: ' Elizabeth Olsen',
-                          //   character: 'Wanda Maximoff /\n The Scarlet Witch',
-                          //   imagepath: AppAssets.actor2,
-                          // ),
-                          // SizedBox(height: 12),
-                          // CastContainer(
-                          //   name: ' Rachel McAdams',
-                          //   character: 'C Dr. Christine Palmer',
-                          //   imagepath: AppAssets.actor3,
-                          // ),
-                          // SizedBox(height: 12),
-                          // CastContainer(
-                          //   name: ' Charlize Theron',
-                          //   character: 'Clea',
-                          //   imagepath: AppAssets.actor4,
-                          // ),
+
                           SizedBox(height: 18),
                           Align(
                             alignment: Alignment.centerLeft,
