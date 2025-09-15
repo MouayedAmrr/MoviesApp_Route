@@ -8,30 +8,38 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      width: 399,
+    return SizedBox(
+      width: 500,
       height: 600,
 
-      child:Column(
-
+      child: Column(
         children: [
           Row(
             children: [
-              ContinerfilmWidget(ImagePathDetails: AppAssets.movie4, rating: '7.7',),
-              SizedBox(width: 15,),
-              ContinerfilmWidget(ImagePathDetails: AppAssets.movie5, rating: '7.7',),
-
+              ContinerfilmWidget(
+                ImagePathDetails: AppAssets.movie4,
+                rating: '7.7',
+              ),
+              SizedBox(width: 15),
+              ContinerfilmWidget(
+                ImagePathDetails: AppAssets.movie5,
+                rating: '7.7',
+              ),
             ],
           ),
           Row(
             children: [
-              ContinerfilmWidget(ImagePathDetails: AppAssets.movie6, rating: '7.7',),
-              SizedBox(width: 15,),
-              ContinerfilmWidget(ImagePathDetails: AppAssets.movie3, rating: '7.7',),
+              ContinerfilmWidget(
+                ImagePathDetails: AppAssets.movie6,
+                rating: '7.7',
+              ),
+              SizedBox(width: 15),
+              ContinerfilmWidget(
+                ImagePathDetails: AppAssets.movie3,
+                rating: '7.7',
+              ),
             ],
           ),
-
-
         ],
       ),
     );
