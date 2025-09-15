@@ -1,4 +1,5 @@
-import '../../domain/entities/movie_details_entity.dart';
+
+
 import '../models/movie_details_model.dart';
 
 abstract class MovieDetailsRemoteDataSource {
