@@ -1,12 +1,10 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:route_movies_app/core/extensions/extensions.dart';
 
 import '../../../../core/constants/app_assets.dart';
+import '../../../../core/routes/pages_route_name.dart';
 import '../../../../core/theme/color_palette.dart';
 import '../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../core/widgets/filmContainerWidget.dart';
@@ -171,11 +169,20 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                             ),
                           ).setHorizontalPadding(context, 0.035),
                           SizedBox(height: 18),
-                          Image.network(movie.largeScreenshot1),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(18),
+                            child: Image.network(movie.largeScreenshot1),
+                          ).setHorizontalPadding(context, 0.035),
                           SizedBox(height: 18),
-                          Image.network(movie.largeScreenshot2),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(18),
+                            child: Image.network(movie.largeScreenshot2),
+                          ).setHorizontalPadding(context, 0.035),
                           SizedBox(height: 18),
-                          Image.network(movie.largeScreenshot3),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(18),
+                            child: Image.network(movie.largeScreenshot3),
+                          ).setHorizontalPadding(context, 0.035),
                           SizedBox(height: 18),
                           Align(
                             alignment: Alignment.centerLeft,
@@ -193,59 +200,89 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                           BlocBuilder<RelatedMoviesCubit, RelatedMoviesState>(
                             builder: (context, state) {
                               if (state is RelatedMoviesLoadingState) {
-                                return const Center(child: CircularProgressIndicator());
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
                               }
                               if (state is RelatedMoviesErrorState) {
-                                return Center(child: Text(state.message, style: TextStyle(color: Colors.red)));
+                                return Center(
+                                  child: Text(
+                                    state.message,
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                );
                               }
                               if (state is RelatedMoviesSuccessState) {
                                 final relatedMovies = state.relatedMovies;
 
-                                return GridView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                                  itemCount: relatedMovies.length > 4 ? 4 : relatedMovies.length,
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,   // 2 items per row
-                                    crossAxisSpacing: 12,
-                                    mainAxisSpacing: 12,
-                                    childAspectRatio: 0.65, // adjust to make height look nice
-                                  ),
-                                  itemBuilder: (context, index) {
-                                    final movie = relatedMovies[index];
-                                    return ContinerfilmWidget(
-                                      ImagePathDetails: movie.mediumCoverImage,
-                                      rating: movie.rating.toString(),
-                                    );
-                                  },
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    GridView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                      ),
+                                      itemCount:
+                                          relatedMovies.length > 4
+                                              ? 4
+                                              : relatedMovies.length,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 12,
+                                            mainAxisSpacing: 12,
+                                            childAspectRatio: 0.65,
+                                          ),
+                                      itemBuilder: (context, index) {
+                                        final movie = relatedMovies[index];
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              PagesRouteName.movieDetails,
+                                              arguments: movie.id.toString(),
+                                            );
+
+                                          },
+                                          child: ContinerfilmWidget(
+                                            ImagePathDetails:
+                                                movie.mediumCoverImage,
+                                            rating: movie.rating.toString(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(height: 18),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        "Summary",
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          color: ColorPalette.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ).setHorizontalPadding(context, 0.035),
+                                    const SizedBox(height: 18),
+                                    Text(
+                                      movie.descriptionIntro,
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: ColorPalette.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ).setHorizontalPadding(context, 0.035),
+                                  ],
                                 );
                               }
                               return const SizedBox.shrink();
                             },
                           ),
 
-                          SizedBox(height: 18),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Summery",
-                              style: TextStyle(
-                                fontSize: 28,
-                                color: ColorPalette.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ).setHorizontalPadding(context, 0.035),
-                          SizedBox(height: 18),
-                          Text(
-                                movie.summary,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: ColorPalette.white,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ).setHorizontalPadding(context, 0.035),
                           SizedBox(height: 18),
                           Align(
                             alignment: Alignment.centerLeft,
@@ -260,17 +297,21 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                           ).setHorizontalPadding(context, 0.035),
                           SizedBox(height: 18),
                           Column(
-                            children: movie.cast
-                                .map((c) => Padding(
-                              padding:
-                              const EdgeInsets.symmetric(vertical: 6),
-                              child: CastContainer(
-                                name: c.name,
-                                character: c.characterName,
-                                imagepath: c.smallImage,
-                              ),
-                            ))
-                                .toList(),
+                            children:
+                                movie.cast
+                                    .map(
+                                      (c) => Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 6,
+                                        ),
+                                        child: CastContainer(
+                                          name: c.name,
+                                          character: c.characterName,
+                                          imagepath: c.smallImage,
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
                           ),
                           // CastContainer(
                           //   name: ' Hayley Atwell',
