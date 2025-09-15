@@ -33,7 +33,7 @@ class ContainerWidget extends StatelessWidget {
             text,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: fontSize, // ✅ Use the dynamic font size
+              fontSize: fontSize,
               color: ColorPalette.white,
             ),
           ),
