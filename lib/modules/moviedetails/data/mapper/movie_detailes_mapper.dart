@@ -1,6 +1,8 @@
-import '../../domain/entities/movie_details_entity.dart';
+
+import 'package:route_movies_app/modules/moviedetails/data/mapper/cast_mapper.dart';
+import 'package:route_movies_app/modules/moviedetails/domain/entities/movie_details_entity.dart';
+
 import '../models/movie_details_model.dart';
-import 'cast_mapper.dart';
 
 extension MovieDetailsMapper on MovieDetailsModel {
   MovieDetailsEntity toEntity() {

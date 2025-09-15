@@ -1,8 +1,9 @@
+
+
 import 'package:injectable/injectable.dart';
-import 'package:route_movies_app/modules/moviedetails/data/models/movie_details_model.dart';
 
 import '../../data/data_sources/movie_detalis_remote_datasource.dart';
-import '../../domain/entities/movie_details_entity.dart';
+import '../../data/models/movie_details_model.dart';
 import '../client/movie_details_api_client.dart';
 
 @LazySingleton(as: MovieDetailsRemoteDataSource)

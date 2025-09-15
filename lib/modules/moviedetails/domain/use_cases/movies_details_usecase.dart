@@ -1,6 +1,8 @@
-import 'package:injectable/injectable.dart';
 
-import '../../domain/entities/movie_details_entity.dart';
+
+import 'package:injectable/injectable.dart';
+import 'package:route_movies_app/modules/moviedetails/domain/entities/movie_details_entity.dart';
+
 import '../repositories/movie_details_repo.dart';
 
 @injectable

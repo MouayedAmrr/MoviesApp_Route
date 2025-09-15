@@ -1,18 +1,22 @@
+
+
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:route_movies_app/core/constants/app_assets.dart';
 import 'package:route_movies_app/core/extensions/extensions.dart';
-import 'package:route_movies_app/core/theme/color_palette.dart';
-import 'package:route_movies_app/core/widgets/custom_elevated_button.dart';
-import 'package:route_movies_app/main.dart';
-import 'package:route_movies_app/modules/moviedetails/presentation/viewmodel/movie_details_states.dart';
+
+import '../../../../core/constants/app_assets.dart';
+import '../../../../core/theme/color_palette.dart';
+import '../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../core/widgets/filmContainerWidget.dart';
+import '../../../../main.dart';
 import '../viewmodel/movie_details_cubit.dart';
+import '../viewmodel/movie_details_states.dart';
 import '../viewmodel/related_movie_states.dart';
 import '../viewmodel/relates_movies_cubit.dart';
 import '../widgets/cast_container_widget.dart';
 import '../widgets/container_widget.dart';
-
 
 class MovieDetailsView extends StatefulWidget {
   final String movieId;
