@@ -7,14 +7,16 @@ part of 'movie_details_response.dart';
 // **************************************************************************
 
 MovieDetailsResponse _$MovieDetailsResponseFromJson(
-  Map<String, dynamic> json,
-) => MovieDetailsResponse(
-  data: MovieDetailsData.fromJson(json['data'] as Map<String, dynamic>),
-);
+        Map<String, dynamic> json) =>
+    MovieDetailsResponse(
+      data: MovieDetailsData.fromJson(json['data'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$MovieDetailsResponseToJson(
-  MovieDetailsResponse instance,
-) => <String, dynamic>{'data': instance.data};
+        MovieDetailsResponse instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+    };
 
 MovieDetailsData _$MovieDetailsDataFromJson(Map<String, dynamic> json) =>
     MovieDetailsData(
@@ -22,4 +24,6 @@ MovieDetailsData _$MovieDetailsDataFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$MovieDetailsDataToJson(MovieDetailsData instance) =>
-    <String, dynamic>{'movie': instance.movie};
+    <String, dynamic>{
+      'movie': instance.movie,
+    };

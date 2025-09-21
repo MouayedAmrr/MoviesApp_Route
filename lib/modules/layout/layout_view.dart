@@ -7,7 +7,7 @@ import '../../core/constants/app_assets.dart';
 import '../../core/theme/color_palette.dart' show ColorPalette;
 import 'Explore/view/explore_tab_view.dart';
 import 'Explore/viewmodel/explore_cubit.dart';
-import 'Profile/profile_view.dart';
+import 'Profile/view/profile_view.dart';
 import 'domain/usecase/get_movies_list_usecase.dart';
 import 'domain/usecase/search_movie_usecase.dart';
 import 'home/view/home_tab_view.dart';
@@ -34,9 +34,9 @@ class _LayoutViewState extends State<LayoutView> {
     BlocProvider(
       create:
           (context) =>
-              HomeCubit(getIt<GetMoviesListUseCase>())
-                ..getTopMovies()
-                ..getMoviesByGenre('Drama'),
+      HomeCubit(getIt<GetMoviesListUseCase>())
+        ..getTopMovies()
+        ..getMoviesByGenre('Drama'),
       child: HomeTabView(),
     ),
     BlocProvider(
@@ -46,8 +46,8 @@ class _LayoutViewState extends State<LayoutView> {
     BlocProvider(
       create:
           (context) =>
-              ExploreCubit(getIt<GetMoviesListUseCase>())
-                ..loadMoviesByGenre("Action"),
+      ExploreCubit(getIt<GetMoviesListUseCase>())
+        ..loadMoviesByGenre("Action"),
       child: ExploreTabView(),
     ),
     ProfileView(),
@@ -59,57 +59,68 @@ class _LayoutViewState extends State<LayoutView> {
       backgroundColor: ColorPalette.black,
 
       bottomNavigationBar: SafeArea(
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: ColorPalette.Textformfireldbg,
-          selectedItemColor: ColorPalette.primaryColor,
-          unselectedItemColor: ColorPalette.white,
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ImageIcon(AssetImage(AppAssets.homeTabIcon), size: 25),
-              ),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ImageIcon(AssetImage(AppAssets.SearchTabIcon), size: 25),
-              ),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ImageIcon(
-                  AssetImage(AppAssets.exploreTabIcon),
-                  size: 25,
+        child: Container(
+          margin: const EdgeInsets.only(right: 12,left: 12,bottom: 12),
+          decoration: BoxDecoration(
+            color: ColorPalette.Textformfireldbg,
+            borderRadius: BorderRadius.circular(14), // rounded corners
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.transparent,
+              // handled by container
+              elevation: 0,
+              selectedItemColor: ColorPalette.primaryColor,
+              unselectedItemColor: ColorPalette.white,
+              currentIndex: _selectedIndex,
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ImageIcon(
+                        AssetImage(AppAssets.homeTabIcon), size: 25),
+                  ),
+                  label: "",
                 ),
-              ),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ImageIcon(
-                  AssetImage(AppAssets.ProfileTabIcon),
-                  size: 25,
+                BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ImageIcon(
+                        AssetImage(AppAssets.SearchTabIcon), size: 25),
+                  ),
+                  label: "",
                 ),
-              ),
-              label: "",
+                BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ImageIcon(
+                        AssetImage(AppAssets.exploreTabIcon), size: 25),
+                  ),
+                  label: "",
+                ),
+                BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ImageIcon(
+                        AssetImage(AppAssets.ProfileTabIcon), size: 25),
+                  ),
+                  label: "",
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
 
-      body: tabs[_selectedIndex], // Show the selected tab
+      body: tabs[_selectedIndex],
     );
   }
 }
+

@@ -5,7 +5,10 @@ import 'package:route_movies_app/core/extensions/extensions.dart';
 import 'package:route_movies_app/core/routes/pages_route_name.dart';
 import 'package:route_movies_app/core/theme/color_palette.dart';
 import 'package:route_movies_app/main.dart';
-import '../../../core/widgets/custom_elevated_button.dart';
+import 'package:route_movies_app/modules/layout/profile/view/widgets/history_widget.dart';
+import 'package:route_movies_app/modules/layout/profile/view/widgets/wishlist_widget.dart';
+import '../../../../core/widgets/custom_elevated_button.dart';
+
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -60,14 +63,14 @@ class ProfileView extends StatelessWidget {
                                             )
                                             : Image.asset(
                                               photoUrl,
-                                              width: 150,
-                                              height: 150,
+                                              width: 130,
+                                              height: 130,
                                               fit: BoxFit.cover,
                                             ))
                                         : Image.asset(
                                           "assets/images/profileImage.png",
-                                          width: 150,
-                                          height: 150,
+                                          width: 130,
+                                          height: 130,
                                           fit: BoxFit.cover,
                                         ),
                               ),
@@ -76,61 +79,81 @@ class ProfileView extends StatelessWidget {
                                 userName,
                                 style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 22,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ],
                           ).setHorizontalAndVerticalPadding(
                             context,
-                            0.06,
+                            0.04,
                             0.07,
                           ),
 
                           // wish list column
-                          Column(
-                            children: [
-                              const Text(
-                                "12",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              const Text(
-                                "Wish List",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                          StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection("users")
+                                .doc(uid)
+                                .collection("favorites")
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              final count = snapshot.data?.docs.length ?? 0;
+                              return Column(
+                                children: [
+                                  Text(
+                                    "$count",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    "Wish List",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ).setOnlyPadding(context, 0.035, 0.02, 0.05, 0.02),
 
                           // history column
-                          Column(
-                            children: [
-                              const Text(
-                                "10",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              const Text(
-                                "History",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                          StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection("users")
+                                .doc(uid)
+                                .collection("history")
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              final count = snapshot.data?.docs.length ?? 0;
+                              return Column(
+                                children: [
+                                  Text(
+                                    "$count",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    "History",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ).setOnlyPadding(context, 0.035, 0.02, 0.02, 0.02),
                         ],
                       ),
@@ -233,20 +256,11 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
 
-                // tab views
                 Expanded(
                   child: TabBarView(
                     children: [
-                      Center(
-                        child: Image.asset(
-                          "assets/images/search_image_tab.png",
-                        ),
-                      ),
-                      Center(
-                        child: Image.asset(
-                          "assets/images/search_image_tab.png",
-                        ),
-                      ),
+                      const WishlistMoviesWidget(),
+                      const HistoryMoviesWidget(),
                     ],
                   ),
                 ),

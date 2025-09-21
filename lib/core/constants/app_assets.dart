@@ -43,4 +43,6 @@ abstract class AppAssets {
   static const String actor2 = "assets/images/actor2.png";
   static const String actor3 = "assets/images/actor3.png";
   static const String actor4 = "assets/images/actor4.png";
+  static const String availableNow = "assets/images/available_now_image.png";
+  static const String watchNow = "assets/images/watch_now_image.png";
 }

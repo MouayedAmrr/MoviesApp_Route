@@ -51,6 +51,7 @@ dependencies:
   dio: ^5.9.0
   shared_preferences: ^2.5.3
   cloud_firestore: ^5.4.3
+  youtube_player_flutter: ^9.0.0
 
   json_annotation: any
 dev_dependencies:

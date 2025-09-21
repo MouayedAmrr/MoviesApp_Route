@@ -6,161 +6,71 @@ import 'package:route_movies_app/core/theme/color_palette.dart';
 class SnackBarService {
   static void showSuccessMessage(String msg) {
     BotToast.showCustomNotification(
-      toastBuilder: (void Function() cancelFunc) {
-        return Material(
-          color: ColorPalette.secondaryColor,
-          child: Container(
-            width: double.maxFinite,
-            height: msg.length > 80 ? 100 : 75,
-            padding: const EdgeInsets.only(right: 8),
-            margin: const EdgeInsets.only(left: 24, right: 24),
-            decoration: BoxDecoration(
-              color: Colors.white60,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child:
-                msg.length > 80
-                    ? Row(
-                      children: [
-                        Container(
-                          height: double.infinity,
-                          width: 10,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF46c234),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              bottomLeft: Radius.circular(12),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Lottie.asset(
-                            "assets/icons/face_success_icon.json",
-                            repeat: false,
-                            height: 250,
-                            width: 250,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Success",
-                                textAlign: TextAlign.start,
-                                maxLines: 3,
-                                style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                msg,
-                                textAlign: TextAlign.start,
-                                maxLines: 3,
-                                style: const TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 13,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const VerticalDivider(
-                          color: Colors.black26,
-                          thickness: 2,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: IconButton(
-                            onPressed: cancelFunc,
-                            icon: const Text(
-                              "close",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.black54),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                    : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: double.infinity,
-                          width: 10,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF46c234),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              bottomLeft: Radius.circular(12),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Lottie.asset(
-                            "assets/icons/face_success_icon.json",
-                            repeat: false,
-                            height: 250,
-                            width: 250,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Success",
-                                textAlign: TextAlign.start,
-                                maxLines: 3,
-                                style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                msg,
-                                textAlign: TextAlign.start,
-                                maxLines: 3,
-                                style: const TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 13,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const VerticalDivider(
-                          color: Colors.black26,
-                          thickness: 2,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: IconButton(
-                            onPressed: cancelFunc,
-                            icon: const Text(
-                              "close",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.black54),
-                            ),
-                          ),
-                        ),
-                      ],
+      toastBuilder: (cancelFunc) {
+        return Container(
+          constraints: const BoxConstraints(maxWidth: 380),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: ColorPalette.secondaryColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.white.withOpacity(0.2),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 50,
+                width: 6,
+                decoration: const BoxDecoration(
+                  color: Color(0xFF46c234),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Lottie.asset(
+                "assets/icons/face_success_icon.json",
+                repeat: false,
+                width: 80,
+                height: 80,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "Success",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
                     ),
+                    Text(
+                      msg,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: cancelFunc,
+                icon: const Icon(Icons.close, color: Colors.white70, size: 20),
+              ),
+            ],
           ),
         );
       },
@@ -171,164 +81,75 @@ class SnackBarService {
 
   static void showErrorMessage(String msg) {
     BotToast.showCustomNotification(
-      toastBuilder: (void Function() cancelFunc) {
-        return Material(
-          color: ColorPalette.secondaryColor,
-          child: Container(
-            width: double.maxFinite,
-            height: msg.length > 80 ? 110 : 85,
-            padding: const EdgeInsets.only(right: 8),
-            margin: const EdgeInsets.only(left: 24, right: 24),
-            decoration: BoxDecoration(
-              color: Colors.white70,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child:
-                msg.length > 80
-                    ? Row(
-                      children: [
-                        Container(
-                          height: double.infinity,
-                          width: 10,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFd12e2e),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              bottomLeft: Radius.circular(12),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Lottie.asset(
-                            "assets/icons/face_wrong_icon.json",
-                            repeat: true,
-                            height: 250,
-                            width: 250,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Error",
-                                textAlign: TextAlign.start,
-                                maxLines: 3,
-                                style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                msg,
-                                textAlign: TextAlign.start,
-                                maxLines: 3,
-                                style: const TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 13,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const VerticalDivider(
-                          color: Colors.black26,
-                          thickness: 2,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: IconButton(
-                            onPressed: cancelFunc,
-                            icon: const Text(
-                              "close",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.black54),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                    : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: double.infinity,
-                          width: 10,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFd12e2e),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              bottomLeft: Radius.circular(12),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Lottie.asset(
-                            "assets/icons/face_wrong_icon.json",
-                            width: 200,
-                            height: 200,
-                            repeat: false,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Error",
-                                textAlign: TextAlign.start,
-                                maxLines: 3,
-                                style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                msg,
-                                textAlign: TextAlign.start,
-                                maxLines: 3,
-                                style: const TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 13,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const VerticalDivider(
-                          color: Colors.black26,
-                          thickness: 2,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: IconButton(
-                            onPressed: cancelFunc,
-                            icon: const Text(
-                              "close",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.black54),
-                            ),
-                          ),
-                        ),
-                      ],
+      toastBuilder: (cancelFunc) {
+        return Container(
+          constraints: const BoxConstraints(maxWidth: 380),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: ColorPalette.secondaryColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.white.withOpacity(0.2),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 50,
+                width: 6,
+                decoration: const BoxDecoration(
+                  color: Color(0xFFd12e2e),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Lottie.asset(
+                "assets/icons/face_wrong_icon.json",
+                repeat: false,
+                width: 60,
+                height: 60,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "Error",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
                     ),
+                    Text(
+                      msg,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: cancelFunc,
+                icon: const Icon(Icons.close, color: Colors.white54, size: 20),
+              ),
+            ],
           ),
         );
       },
-      duration: const Duration(seconds: 10),
+      duration: const Duration(seconds: 5),
       dismissDirections: [DismissDirection.endToStart],
     );
   }

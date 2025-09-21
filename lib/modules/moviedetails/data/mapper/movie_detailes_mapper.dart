@@ -39,3 +39,40 @@ extension MovieDetailsMapper on MovieDetailsModel {
     );
   }
 }
+  extension MovieDetailsEntityMapper on MovieDetailsEntity {
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "url": url,
+      "imdb_code": imdbCode,
+      "title": title,
+      "title_english": titleEnglish,
+      "title_long": titleLong,
+      "slug": slug,
+      "year": year,
+      "rating": rating,
+      "runtime": runtime,
+      "genres": genres,
+      "like_count": likeCount,
+      "summary": summary,
+      "description_intro": descriptionIntro,
+      "description_full": descriptionFull,
+      "yt_trailer_code": ytTrailerCode,
+      "language": language,
+      "mpa_rating": mpaRating,
+      "background_image": backgroundImage,
+      "background_image_original": backgroundImageOriginal,
+      "small_cover_image": smallCoverImage,
+      "medium_cover_image": mediumCoverImage,
+      "large_cover_image": largeCoverImage,
+      "medium_screenshot_image1": mediumScreenshot1,
+      "medium_screenshot_image2": mediumScreenshot2,
+      "medium_screenshot_image3": mediumScreenshot3,
+      "large_screenshot_image1": largeScreenshot1,
+      "large_screenshot_image2": largeScreenshot2,
+      "large_screenshot_image3": largeScreenshot3,
+      "cast": cast.map((c) => c.toJson()).toList(),
+    };
+  }
+}
+
