@@ -35,7 +35,7 @@ A comprehensive Flutter application that allows users to explore, discover, and 
 ### App Introduction & Home
 | Splash Screen                          | Introduction Screens                      | Home Screen                               |
 |----------------------------------------|------------------------------------------|------------------------------------------|
-| ![Splash](readme_images/splash_screen.jpg) | ![Intro](readme_images/intro_screen.jpg) | ![Home](readme_images/home_Screen.jpg)   |
+| ![Splash](readme_images/splash_screen.png) | ![Intro](readme_images/intro_screen.jpg) | ![Home](readme_images/home_Screen.jpg)   |
 
 ### Movie Discovery & Profile
 | Explore Screen                         | Profile Screen                            | Update Photo                             |
