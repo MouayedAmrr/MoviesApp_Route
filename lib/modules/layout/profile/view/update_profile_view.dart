@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:route_movies_app/core/extensions/extensions.dart';
 import 'package:route_movies_app/core/theme/color_palette.dart';
 import 'package:route_movies_app/core/widgets/custom_elevated_button.dart';
-import '../../../core/routes/pages_route_name.dart';
-import '../../../core/widgets/custom_text_field.dart';
+import '../../../../core/routes/pages_route_name.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 
 class UpdateProfileView extends StatefulWidget {
   const UpdateProfileView({super.key});

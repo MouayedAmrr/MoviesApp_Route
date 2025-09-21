@@ -9,7 +9,11 @@ part of 'movie_details_api_client.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _MovieDetailsApiClient implements MovieDetailsApiClient {
-  _MovieDetailsApiClient(this._dio, {this.baseUrl, this.errorLogger});
+  _MovieDetailsApiClient(
+    this._dio, {
+    this.baseUrl,
+    this.errorLogger,
+  });
 
   final Dio _dio;
 
@@ -32,16 +36,22 @@ class _MovieDetailsApiClient implements MovieDetailsApiClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<MovieDetailsResponse>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/movie_details.json',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
+    final _options = _setStreamType<MovieDetailsResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/movie_details.json',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late MovieDetailsResponse _value;
     try {
@@ -59,16 +69,22 @@ class _MovieDetailsApiClient implements MovieDetailsApiClient {
     final queryParameters = <String, dynamic>{r'movie_id': movieId};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<RelatedMoviesResponse>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '//movie_suggestions.json',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
+    final _options = _setStreamType<RelatedMoviesResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '//movie_suggestions.json',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late RelatedMoviesResponse _value;
     try {
@@ -93,7 +109,10 @@ class _MovieDetailsApiClient implements MovieDetailsApiClient {
     return requestOptions;
   }
 
-  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

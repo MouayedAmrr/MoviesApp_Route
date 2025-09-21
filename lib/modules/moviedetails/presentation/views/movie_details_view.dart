@@ -8,12 +8,16 @@ import '../../../../core/theme/color_palette.dart';
 import '../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../core/widgets/filmContainerWidget.dart';
 import '../../../../main.dart';
+import '../../../layout/Profile/viewmodel/wishlist_cubit.dart';
+import '../../../layout/Profile/viewmodel/wishlist_states.dart';
+import '../../../layout/profile/viewmodel/history_cubit.dart';
 import '../viewmodel/movie_details_cubit.dart';
 import '../viewmodel/movie_details_states.dart';
 import '../viewmodel/related_movie_states.dart';
 import '../viewmodel/relates_movies_cubit.dart';
 import '../widgets/cast_container_widget.dart';
 import '../widgets/container_widget.dart';
+import 'movie_player_screen.dart';
 
 class MovieDetailsView extends StatefulWidget {
   final String movieId;
@@ -76,25 +80,35 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                                 onTap: () {
                                   navigatorKey.currentState!.pop();
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back_ios,
                                   color: Colors.white,
                                   size: 35,
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isMarked = !isMarked;
-                                  });
+                              BlocBuilder<WishlistCubit, WishlistState>(
+                                builder: (context, wishlistState) {
+                                  bool isMarked = false;
+                                  if (wishlistState is WishlistLoaded) {
+                                    isMarked = wishlistState.movies
+                                        .any((fav) => fav.id == movie.id);
+                                  }
+
+                                  return GestureDetector(
+                                    onTap: () {
+                                      context
+                                          .read<WishlistCubit>()
+                                          .toggleFavorite(movie);
+                                    },
+                                    child: Icon(
+                                      isMarked
+                                          ? Icons.bookmark
+                                          : Icons.bookmark_border_outlined,
+                                      color: Colors.white,
+                                      size: 35,
+                                    ),
+                                  );
                                 },
-                                child: Icon(
-                                  isMarked
-                                      ? Icons.bookmark
-                                      : Icons.bookmark_border_outlined,
-                                  color: Colors.white,
-                                  size: 35,
-                                ),
                               ),
                             ],
                           ).setHorizontalAndVerticalPadding(
@@ -102,9 +116,16 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                             0.04,
                             0.048,
                           ),
+
                           SizedBox(height: 100),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              context.read<HistoryCubit>().addToHistory(movie);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const YoutubePlayerScreen()),
+                              );
+                            },
                             child: Image.asset(AppAssets.playMovieImage),
                           ),
                           SizedBox(height: 195),
@@ -130,6 +151,13 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                           SizedBox(
                             width: double.infinity,
                             child: CustomElevatedButton(
+                              onTap: (){
+                                context.read<HistoryCubit>().addToHistory(movie);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const YoutubePlayerScreen()),
+                                );
+                              },
                               borderRadius: 15,
                               title: "Watch",
                               bgColor: ColorPalette.red,

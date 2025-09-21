@@ -38,10 +38,9 @@ MovieDetailsModel _$MovieDetailsModelFromJson(Map<String, dynamic> json) =>
       largeScreenshot1: json['large_screenshot_image1'] as String?,
       largeScreenshot2: json['large_screenshot_image2'] as String?,
       largeScreenshot3: json['large_screenshot_image3'] as String?,
-      cast:
-          (json['cast'] as List<dynamic>?)
-              ?.map((e) => Cast.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      cast: (json['cast'] as List<dynamic>?)
+          ?.map((e) => Cast.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$MovieDetailsModelToJson(MovieDetailsModel instance) =>
