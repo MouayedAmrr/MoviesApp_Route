@@ -25,37 +25,22 @@ A comprehensive Flutter application that allows users to explore, discover, and 
 - **Responsive Design** - Optimized for all screen sizes
 - **Offline Support** - Browse cached content when offline
 
-## 🖼️ App Screenshots
+## Screenshots
 
-### 🚀 Splash Screen
-![Splash Screen](readme_images/splash_screen.jpg)
-*Welcome screen with smooth animations and app branding*
+### Authentication Features
+| Login Screen                           | Signup Screen                            |
+|----------------------------------------|------------------------------------------|
+| ![Login](readme_images/login.jpg)      | ![Signup](readme_images/create_account.jpg) |
 
-### 📖 Introduction Screens
-![Introduction Screens](readme_images/intro_screen.jpg)
-*Interactive onboarding experience introducing app features and functionality*
+### App Introduction & Home
+| Splash Screen                          | Introduction Screens                      | Home Screen                               |
+|----------------------------------------|------------------------------------------|------------------------------------------|
+| ![Splash](readme_images/splash_screen.jpg) | ![Intro](readme_images/intro_screen.jpg) | ![Home](readme_images/home_Screen.jpg)   |
 
-### 🔑 Authentication
-![Login Screen](readme_images/login.jpg)
-*Secure login interface with Firebase authentication*
-
-![Create Account](readme_images/create_account.jpg)
-*User registration with comprehensive form validation*
-
-### 🏠 Home Screen
-![Home Screen](readme_images/home_Screen.jpg)
-*Main dashboard featuring trending movies, recommendations, and quick access to all features*
-
-### 🔍 Explore & Search
-![Explore Screen](readme_images/explore.jpg)
-*Advanced movie discovery with genre filters, trending content, and search functionality*
-
-### 👤 Profile Management
-![Profile Screen](readme_images/profile.jpg)
-*User profile with viewing history, watchlist, and account settings*
-
-![Update Photo](readme_images/update_photo.jpg)
-*Profile photo management and personal information editing*
+### Movie Discovery & Profile
+| Explore Screen                         | Profile Screen                            | Update Photo                             |
+|----------------------------------------|------------------------------------------|------------------------------------------|
+| ![Explore](readme_images/explore.jpg)  | ![Profile](readme_images/profile.jpg)    | ![Update](readme_images/update_photo.jpg) |
 
 ## 🛠️ Technical Features
 
