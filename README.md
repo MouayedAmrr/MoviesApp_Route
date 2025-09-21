@@ -170,7 +170,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Authors
 
 **Mohamed Yasser & Mouayed Amr**
-- GitHub: [@moyasser20](https://github.com/moyasser20)
 - **Route Academy** - Graduation Project
 - This project was developed as part of our graduation requirements at Route Academy
 
