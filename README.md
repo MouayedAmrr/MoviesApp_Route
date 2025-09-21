@@ -61,7 +61,6 @@ A comprehensive Flutter application that allows users to explore, discover, and 
 
 ### 🎨 UI/UX Features
 - **Modern Design** - Clean and intuitive interface
-- **Dark/Light Themes** - User preference support
 - **Smooth Animations** - Enhanced user experience
 - **Responsive Layout** - Works on all device sizes
 
@@ -70,7 +69,7 @@ A comprehensive Flutter application that allows users to explore, discover, and 
 ### Prerequisites
 - Flutter SDK (latest stable version)
 - Firebase project setup
-- Android Studio / VS Code
+- Android Studio
 - Git
 
 ### Installation
@@ -133,7 +132,6 @@ lib/
 - `firebase_storage` - File storage
 - `google_sign_in` - Google authentication
 - `shared_preferences` - Local storage
-- `sqflite` - Local database
 - `path_provider` - File system access
 
 ## 🎯 Features in Detail
