@@ -11,15 +11,10 @@ class MovieDataModel {
   final String? statusMessage;
   final DataModel? data;
 
-  MovieDataModel({
-    this.status,
-    this.statusMessage,
-    this.data,
-  });
+  MovieDataModel({this.status, this.statusMessage, this.data});
 
   factory MovieDataModel.fromJson(Map<String, dynamic> json) =>
       _$MovieDataModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovieDataModelToJson(this);
 }
-

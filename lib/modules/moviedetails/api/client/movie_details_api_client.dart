@@ -14,17 +14,18 @@ part 'movie_details_api_client.g.dart';
 @RestApi()
 abstract class MovieDetailsApiClient {
   @factoryMethod
-  factory MovieDetailsApiClient(Dio dio, {@Named('baseurl') String? baseUrl}) = _MovieDetailsApiClient;
+  factory MovieDetailsApiClient(Dio dio, {@Named('baseurl') String? baseUrl}) =
+      _MovieDetailsApiClient;
 
   @GET(EndPoints.moviesDetails)
   Future<MovieDetailsResponse> getMovieDetails(
-      @Query('movie_id') String movieId,
-      @Query('with_images') bool? withImages,
-      @Query('with_cast') bool? withCast,
-      );
+    @Query('movie_id') String movieId,
+    @Query('with_images') bool? withImages,
+    @Query('with_cast') bool? withCast,
+  );
 
   @GET(EndPoints.relatedMovies)
-  Future<RelatedMoviesResponse> getRelatedMovies(@Query('movie_id') String movieId);
-
-
+  Future<RelatedMoviesResponse> getRelatedMovies(
+    @Query('movie_id') String movieId,
+  );
 }

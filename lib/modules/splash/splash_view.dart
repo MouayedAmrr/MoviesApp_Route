@@ -15,16 +15,13 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    Timer(
-      const Duration(seconds: 2),
-          () {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          PagesRouteName.onBoarding,
-              (route) => false,
-        );
-      },
-    );
+    Timer(const Duration(seconds: 2), () {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        PagesRouteName.onBoarding,
+        (route) => false,
+      );
+    });
     super.initState();
   }
 

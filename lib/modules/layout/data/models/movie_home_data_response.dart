@@ -13,11 +13,7 @@ class MovieHomeData {
   @JsonKey(name: 'rating')
   final String rating;
 
-  MovieHomeData({
-    required this.id,
-    required this.image,
-    required this.rating,
-  });
+  MovieHomeData({required this.id, required this.image, required this.rating});
 
   factory MovieHomeData.fromJson(Map<String, dynamic> json) =>
       _$MovieHomeDataFromJson(json);

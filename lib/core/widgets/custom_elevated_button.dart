@@ -63,7 +63,10 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         mainAxisSize: MainAxisSize.min, // Keeps button compact
         children: [
           if (widget.prefixIcon != null)
-            Icon(widget.prefixIcon, color: widget.prefixIconColor ?? widget.titleColor),
+            Icon(
+              widget.prefixIcon,
+              color: widget.prefixIconColor ?? widget.titleColor,
+            ),
           if (widget.prefixIcon != null) const SizedBox(width: 8),
           Text(
             widget.title,
@@ -75,7 +78,10 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
           ),
           if (widget.suffixIcon != null) const SizedBox(width: 8),
           if (widget.suffixIcon != null)
-            Icon(widget.suffixIcon, color: widget.suffixIconColor ?? widget.titleColor),
+            Icon(
+              widget.suffixIcon,
+              color: widget.suffixIconColor ?? widget.titleColor,
+            ),
         ],
       ),
     );

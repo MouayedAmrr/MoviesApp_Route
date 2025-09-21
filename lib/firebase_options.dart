@@ -64,8 +64,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '540695093297',
     projectId: 'movies-app-13b30',
     storageBucket: 'movies-app-13b30.firebasestorage.app',
-    androidClientId: '540695093297-66f435slkg3ka6reolkgulp0ic5gdnca.apps.googleusercontent.com',
-    iosClientId: '540695093297-l1rf17mfgkoht1ngfcokkliddhns2i1s.apps.googleusercontent.com',
+    androidClientId:
+        '540695093297-66f435slkg3ka6reolkgulp0ic5gdnca.apps.googleusercontent.com',
+    iosClientId:
+        '540695093297-l1rf17mfgkoht1ngfcokkliddhns2i1s.apps.googleusercontent.com',
     iosBundleId: 'com.example.routeMoviesApp',
   );
 
@@ -75,8 +77,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '540695093297',
     projectId: 'movies-app-13b30',
     storageBucket: 'movies-app-13b30.firebasestorage.app',
-    androidClientId: '540695093297-66f435slkg3ka6reolkgulp0ic5gdnca.apps.googleusercontent.com',
-    iosClientId: '540695093297-l1rf17mfgkoht1ngfcokkliddhns2i1s.apps.googleusercontent.com',
+    androidClientId:
+        '540695093297-66f435slkg3ka6reolkgulp0ic5gdnca.apps.googleusercontent.com',
+    iosClientId:
+        '540695093297-l1rf17mfgkoht1ngfcokkliddhns2i1s.apps.googleusercontent.com',
     iosBundleId: 'com.example.routeMoviesApp',
   );
 
@@ -89,5 +93,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'movies-app-13b30.firebasestorage.app',
     measurementId: 'G-WL44K8TTKL',
   );
-
 }

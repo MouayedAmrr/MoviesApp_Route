@@ -56,6 +56,7 @@ class _SignUpViewState extends State<SignUpView> {
     _phoneController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,14 +91,15 @@ class _SignUpViewState extends State<SignUpView> {
                     });
                   },
                   itemBuilder: (context, index) {
-                    final scale = selectedIndex == index ? 1.0 : 0.7; // center bigger
+                    final scale =
+                        selectedIndex == index ? 1.0 : 0.7; // center bigger
                     return TweenAnimationBuilder(
                       tween: Tween<double>(begin: scale, end: scale),
                       duration: const Duration(milliseconds: 300),
                       builder: (context, value, child) {
                         return Transform.scale(
                           scale: value,
-                          child: Image.asset(avatars[index],fit:BoxFit.fill)
+                          child: Image.asset(avatars[index], fit: BoxFit.fill),
                         );
                       },
                     );
@@ -226,7 +228,7 @@ class _SignUpViewState extends State<SignUpView> {
                       if (value) {
                         navigatorKey.currentState!.pushNamedAndRemoveUntil(
                           PagesRouteName.signIn,
-                              (route) => false,
+                          (route) => false,
                         );
                       }
                     });

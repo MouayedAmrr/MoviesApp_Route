@@ -21,7 +21,9 @@ import '../../modules/layout/data/repo_impl/home_repo_impl.dart' as _i978;
 import '../../modules/layout/domain/repo/home_repo.dart' as _i263;
 import '../../modules/layout/domain/usecase/get_movies_list_usecase.dart'
     as _i986;
-import '../../modules/layout/presentation/viewModel/home_cubit.dart' as _i650;
+import '../../modules/layout/domain/usecase/search_movie_usecase.dart' as _i82;
+import '../../modules/layout/home/viewModel/home_cubit.dart' as _i692;
+import '../../modules/layout/profile/viewmodel/wishlist_cubit.dart' as _i565;
 import '../../modules/moviedetails/api/client/movie_details_api_client.dart'
     as _i219;
 import '../../modules/moviedetails/api/data_source_impl/moviedetails_remote_datasource_impl.dart'
@@ -52,6 +54,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dioModule = _$DioModule();
+    gh.factory<_i565.WishlistCubit>(() => _i565.WishlistCubit());
     gh.factory<String>(
       () => dioModule.baseUrl,
       instanceName: 'baseurl',
@@ -83,8 +86,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i218.RelatedMoviesCubit(gh<_i533.GetMovieDetailsUseCase>()));
     gh.lazySingleton<_i986.GetMoviesListUseCase>(
         () => _i986.GetMoviesListUseCase(gh<_i263.HomeRepo>()));
-    gh.factory<_i650.HomeCubit>(
-        () => _i650.HomeCubit(gh<_i986.GetMoviesListUseCase>()));
+    gh.lazySingleton<_i82.SearchMoviesUseCase>(
+        () => _i82.SearchMoviesUseCase(gh<_i263.HomeRepo>()));
+    gh.factory<_i692.HomeCubit>(
+        () => _i692.HomeCubit(gh<_i986.GetMoviesListUseCase>()));
     return this;
   }
 }

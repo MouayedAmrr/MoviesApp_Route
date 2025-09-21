@@ -6,10 +6,5 @@ class Data {
   final int? pageNumber;
   final List<Movies>? movies;
 
-  Data({
-    this.movieCount,
-    this.limit,
-    this.pageNumber,
-    this.movies,
-  });
+  Data({this.movieCount, this.limit, this.pageNumber, this.movies});
 }

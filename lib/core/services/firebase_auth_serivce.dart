@@ -10,7 +10,6 @@ import 'package:route_movies_app/core/services/snack_bar_service.dart';
 abstract class FirebaseAuthService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-
   static Future<bool> createAccount({
     required String emailAddress,
     required String password,
@@ -22,17 +21,14 @@ abstract class FirebaseAuthService {
     try {
       final userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-        email: emailAddress,
-        password: password,
-      );
+            email: emailAddress,
+            password: password,
+          );
 
       final user = userCredential.user;
 
       if (user != null) {
-        await FirebaseFirestore.instance
-            .collection("users")
-            .doc(user.uid)
-            .set({
+        await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
           "uid": user.uid,
           "name": name,
           "email": emailAddress,
@@ -65,7 +61,6 @@ abstract class FirebaseAuthService {
     }
   }
 
-
   static Future<bool> login({
     required String emailAddress,
     required String password,
@@ -73,10 +68,7 @@ abstract class FirebaseAuthService {
     EasyLoading.show();
     try {
       final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-        email: emailAddress,
-        password: password,
-      );
+          .signInWithEmailAndPassword(email: emailAddress, password: password);
 
       SnackBarService.showSuccessMessage("Logged In successfully");
       EasyLoading.dismiss();
@@ -85,11 +77,13 @@ abstract class FirebaseAuthService {
       EasyLoading.dismiss();
       if (e.code == 'user-not-found') {
         SnackBarService.showErrorMessage(
-            e.message ?? 'No user found for that email.');
+          e.message ?? 'No user found for that email.',
+        );
         return false;
       } else if (e.code == 'invalid-credential') {
         SnackBarService.showErrorMessage(
-            e.message ?? 'Wrong password provided for that user.');
+          e.message ?? 'Wrong password provided for that user.',
+        );
         return false;
       }
       return false;
@@ -112,17 +106,17 @@ abstract class FirebaseAuthService {
         return null;
       }
 
-
       final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+          await googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      var userCred =
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      var userCred = await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
       final user = userCred.user;
 
       if (user != null) {
@@ -138,7 +132,7 @@ abstract class FirebaseAuthService {
 
         navigatorKey.currentState!.pushNamedAndRemoveUntil(
           PagesRouteName.layout,
-              (route) => false,
+          (route) => false,
         );
       }
 

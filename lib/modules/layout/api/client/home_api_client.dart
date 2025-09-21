@@ -11,11 +11,13 @@ part 'home_api_client.g.dart';
 @injectable
 @RestApi()
 abstract class HomeApiClient {
-
   @factoryMethod
-  factory HomeApiClient(Dio dio, {@Named('baseurl') String? baseUrl }) = _HomeApiClient;
+  factory HomeApiClient(Dio dio, {@Named('baseurl') String? baseUrl}) =
+      _HomeApiClient;
 
   @GET(EndPoints.listMovies)
   Future<MovieDataModel> listMovies(@Query('genre') String? genre);
 
+  @GET(EndPoints.listMovies)
+  Future<MovieDataModel> searchMovies(@Query('query_term') String query);
 }

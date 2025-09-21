@@ -13,12 +13,7 @@ class DataModel {
   final int? pageNumber;
   final List<MovieModel>? movies;
 
-  DataModel({
-    this.movieCount,
-    this.limit,
-    this.pageNumber,
-    this.movies,
-  });
+  DataModel({this.movieCount, this.limit, this.pageNumber, this.movies});
 
   factory DataModel.fromJson(Map<String, dynamic> json) =>
       _$DataModelFromJson(json);

@@ -34,9 +34,10 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
         title: const Text(
           "Forget Password",
           style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-              color: ColorPalette.primaryColor),
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: ColorPalette.primaryColor,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -67,11 +68,11 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
               onPressed: () async {
                 await FirebaseAuth.instance
                     .sendPasswordResetEmail(
-                  email: _forgetPassController.text.trim(),
-                )
+                      email: _forgetPassController.text.trim(),
+                    )
                     .then((_) {
-                  Navigator.pushNamed(context, PagesRouteName.signIn);
-                });
+                      Navigator.pushNamed(context, PagesRouteName.signIn);
+                    });
               },
               style: ElevatedButton.styleFrom(
                 elevation: 0,

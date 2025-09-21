@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:route_movies_app/modules/layout/data/models/torrents_model.dart';
 
-import '../../domain/entity/torrents_entity.dart';
 part 'movie_model.g.dart';
 
 @JsonSerializable()

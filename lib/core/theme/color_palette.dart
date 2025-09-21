@@ -9,5 +9,4 @@ abstract class ColorPalette {
   static const Color generalGreyColor = Colors.grey;
   static const Color bgcolor = Color(0xFF121312);
   static const Color Textformfireldbg = Color(0xFF282A28);
-
 }

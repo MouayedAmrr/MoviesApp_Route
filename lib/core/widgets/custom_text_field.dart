@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../theme/color_palette.dart';
+
 class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final bool? isPassword;
@@ -60,7 +61,12 @@ class CustomTextField extends StatefulWidget {
     this.hintColor = Colors.grey,
     this.iconColor = Colors.grey,
     this.borderColor,
-    this.edgeInsets = const EdgeInsets.only(top: 14, left: 16, right: 16, bottom: 14),
+    this.edgeInsets = const EdgeInsets.only(
+      top: 14,
+      left: 16,
+      right: 16,
+      bottom: 14,
+    ),
   });
 
   @override
@@ -72,7 +78,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    Color borderClr = widget.borderColor ?? widget.fillColor ?? Colors.transparent;
+    Color borderClr =
+        widget.borderColor ?? widget.fillColor ?? Colors.transparent;
 
     return TextFormField(
       readOnly: widget.isReadOnly ?? false, // Control edit ability
@@ -104,27 +111,34 @@ class _CustomTextFieldState extends State<CustomTextField> {
       cursorColor: Colors.blue,
       decoration: InputDecoration(
         labelText: widget.label,
-        labelStyle: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
+        labelStyle: const TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.w500,
+        ),
         prefixIconConstraints: const BoxConstraints(minWidth: 56),
-        suffixIcon: widget.isPassword ?? false
-            ? InkWell(
-          onTap: () {
-            setState(() {
-              obscureText = !obscureText;
-            });
-          },
-          child: Icon(
-            obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-            color: widget.iconColor,
-          ),
-        )
-            : widget.suffixWidget,
-        prefixIcon: widget.prefixIcon != null
-            ? IconTheme(
-          data: IconThemeData(color: widget.iconColor),
-          child: widget.prefixIcon!,
-        )
-            : null,
+        suffixIcon:
+            widget.isPassword ?? false
+                ? InkWell(
+                  onTap: () {
+                    setState(() {
+                      obscureText = !obscureText;
+                    });
+                  },
+                  child: Icon(
+                    obscureText
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    color: widget.iconColor,
+                  ),
+                )
+                : widget.suffixWidget,
+        prefixIcon:
+            widget.prefixIcon != null
+                ? IconTheme(
+                  data: IconThemeData(color: widget.iconColor),
+                  child: widget.prefixIcon!,
+                )
+                : null,
         hintText: widget.hint,
         hintStyle: TextStyle(color: widget.hintColor),
         fillColor: widget.fillColor,
@@ -144,7 +158,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: ColorPalette.Textformfireldbg, width: 2),
+          borderSide: const BorderSide(
+            color: ColorPalette.Textformfireldbg,
+            width: 2,
+          ),
         ),
         errorStyle: const TextStyle(color: Colors.red, fontSize: 12),
         errorBorder: OutlineInputBorder(

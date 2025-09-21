@@ -11,3 +11,13 @@ extension CastMapper on Cast {
     );
   }
 }
+extension CastEntityMapper on CastEntity {
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "character_name": characterName,
+      "url_small_image": smallImage,
+      "imdb_code": imdbCode,
+    };
+  }
+}
