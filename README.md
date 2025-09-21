@@ -44,6 +44,13 @@ A comprehensive Flutter application that allows users to explore, discover, and 
 
 ## 🛠️ Technical Features
 
+### 🏗️ Architecture & State Management
+- **Clean Architecture** - Separation of concerns with layered architecture
+- **Cubit State Management** - Reactive state management with Cubit
+- **Dependency Injection** - Injectable for automatic dependency injection
+- **API Client** - Centralized API communication layer
+- **Retrofit** - Type-safe HTTP client for API calls
+
 ### 🔥 Firebase Integration
 - **Authentication** - Secure user login and registration
 - **Cloud Firestore** - Real-time data synchronization
@@ -126,11 +133,24 @@ lib/
 
 ## 🔧 Key Dependencies
 
+### Architecture & State Management
+- `flutter_bloc` - Cubit state management
+- `injectable` - Dependency injection
+- `get_it` - Service locator for dependency injection
+
+### API & Networking
+- `retrofit` - Type-safe HTTP client
+- `dio` - HTTP client for API calls
+- `json_annotation` - JSON serialization
+
+### Firebase
 - `firebase_core` - Firebase integration
 - `firebase_auth` - Authentication
 - `cloud_firestore` - Database
 - `firebase_storage` - File storage
 - `google_sign_in` - Google authentication
+
+### Local Storage & Utilities
 - `shared_preferences` - Local storage
 - `path_provider` - File system access
 
