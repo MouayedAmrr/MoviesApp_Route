@@ -1,16 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:route_movies_app/core/services/snack_bar_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../main.dart';
 import '../routes/pages_route_name.dart';
+import 'package:route_movies_app/core/services/snack_bar_service.dart';
 
 abstract class FirebaseAuthService {
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   static Future<bool> createAccount({
     required String emailAddress,
     required String password,
+    required String name,
+    required String avatarUrl,
+    required String phone,
   }) async {
     EasyLoading.show();
     try {
@@ -20,27 +25,39 @@ abstract class FirebaseAuthService {
             password: password,
           );
 
-      SnackBarService.showSuccessMessage("Account created successfully");
+      final user = userCredential.user;
 
-      return Future.value(true);
+      if (user != null) {
+        await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
+          "uid": user.uid,
+          "name": name,
+          "email": emailAddress,
+          "phone": phone,
+          "avatar": avatarUrl,
+          "createdAt": FieldValue.serverTimestamp(),
+        });
+      }
+
+      SnackBarService.showSuccessMessage("Account created successfully");
+      return true;
     } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
       if (e.code == 'weak-password') {
         SnackBarService.showErrorMessage(
           e.message ?? 'The password provided is too weak.',
         );
-
-        print('The password provided is too weak.');
-        return Future.value(false);
       } else if (e.code == 'email-already-in-use') {
         SnackBarService.showErrorMessage(
           e.message ?? 'The account already exists for that email.',
         );
-        print('The account already exists for that email.');
-        return Future.value(false);
       }
-      return Future.value(false);
+      return false;
     } catch (e) {
-      return Future.value(false);
+      EasyLoading.dismiss();
+      SnackBarService.showErrorMessage("Something went wrong: $e");
+      return false;
+    } finally {
+      EasyLoading.dismiss();
     }
   }
 
@@ -53,59 +70,79 @@ abstract class FirebaseAuthService {
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailAddress, password: password);
 
-      print(userCredential.credential?.accessToken);
-      print(userCredential.user?.uid);
-
       SnackBarService.showSuccessMessage("Logged In successfully");
-
-      return Future.value(true);
+      EasyLoading.dismiss();
+      return true;
     } on FirebaseAuthException catch (e) {
-      print(e.message);
-      print(e.code);
+      EasyLoading.dismiss();
       if (e.code == 'user-not-found') {
         SnackBarService.showErrorMessage(
           e.message ?? 'No user found for that email.',
         );
-        return Future.value(false);
+        return false;
       } else if (e.code == 'invalid-credential') {
         SnackBarService.showErrorMessage(
           e.message ?? 'Wrong password provided for that user.',
         );
-        return Future.value(false);
+        return false;
       }
-      return Future.value(false);
+      return false;
     } catch (e) {
-      return Future.value(false);
+      EasyLoading.dismiss();
+      return false;
     }
   }
 
-  static Future signInWithGoogle() async {
+  static Future<UserCredential?> signInWithGoogle({
+    required String avatarUrl,
+  }) async {
     EasyLoading.show();
     await GoogleSignIn().signOut();
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        EasyLoading.dismiss();
+        return null;
+      }
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
-    var userCred = await FirebaseAuth.instance.signInWithCredential(credential);
-
-    EasyLoading.dismiss();
-    if (userCred.user != null) {
-      navigatorKey.currentState!.pushNamedAndRemoveUntil(
-        PagesRouteName.layout,
-        (route) => false,
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
-    }
 
-    SnackBarService.showSuccessMessage("Logged In successfully");
-    return userCred;
+      var userCred = await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
+      final user = userCred.user;
+
+      if (user != null) {
+        final userDoc = _firestore.collection("users").doc(user.uid);
+
+        await userDoc.set({
+          "uid": user.uid,
+          "email": user.email,
+          "name": user.displayName ?? "",
+          "avatar": avatarUrl,
+          "createdAt": FieldValue.serverTimestamp(),
+        }, SetOptions(merge: true));
+
+        navigatorKey.currentState!.pushNamedAndRemoveUntil(
+          PagesRouteName.layout,
+          (route) => false,
+        );
+      }
+
+      SnackBarService.showSuccessMessage("Logged In successfully");
+      return userCred;
+    } catch (e) {
+      SnackBarService.showErrorMessage("Google sign-in failed: $e");
+      return null;
+    } finally {
+      EasyLoading.dismiss();
+    }
   }
 }

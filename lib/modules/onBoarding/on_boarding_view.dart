@@ -14,7 +14,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
-  List backgroundImg = [
+  final List<String> backgroundImg = [
     AppAssets.onboardFirstImg,
     AppAssets.onboardSecondImg,
     AppAssets.onboardThirdImg,
@@ -22,15 +22,17 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     AppAssets.onboardFifthImg,
     AppAssets.onboardLastImg,
   ];
-  List<String> title = [
-    "Find Your Next Favorite Movie Here",
+
+  final List<String> title = [
+    "Find Your Next\n Favorite Movie Here",
     "Discover Movies",
     "Explore All Genres",
     "Create Watchlists",
-    "Rate,Review and Learn",
+    "Rate, Review and Learn",
     "Start Watching Now",
   ];
-  List desc = [
+
+  final List<String> desc = [
     "Get access to a huge library of movies to suit all tastes. You will surely like it.",
     "Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.",
     "Discover movies from every genre, in all available qualities. Find something new and exciting to watch every day.",
@@ -41,221 +43,91 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: ColorPalette.black,
       body: PageView.builder(
-        physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: backgroundImg.length,
         onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          setState(() => _currentIndex = index);
         },
         itemBuilder: (context, i) {
           return Stack(
             children: [
-              Image.asset(backgroundImg[i], fit: BoxFit.fill),
-              i != 0
-                  ? Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 34,
-                  ),
-                  decoration: const BoxDecoration(
-                    color: ColorPalette.black,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40.0),
-                      topRight: Radius.circular(40.0),
+              // Background image
+              SizedBox(
+                width: double.infinity,
+                child: Image.asset(backgroundImg[i], fit: BoxFit.cover),
+              ),
+
+              // All pages except first one
+              if (i != 0)
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 34,
                     ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Center(
-                        child: Text(
-                          title[i],
-                          style: TextStyle(
-                            color: ColorPalette.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: "Inter",
-                          ),
-                        ),
+                    decoration: const BoxDecoration(
+                      color: ColorPalette.black,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40.0),
+                        topRight: Radius.circular(40.0),
                       ),
-                      SizedBox(height: 8),
-                      Center(
-                        child: Text(
-                          desc[i],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: ColorPalette.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Inter",
-                          ),
-                        ),
-                      ),
-                      if (i != title.length - 1) SizedBox(height: 15),
-                      (_currentIndex == title.length - 1)
-                          ? ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            PagesRouteName.signIn,
-                                (route) => false,
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: ColorPalette.primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
                           child: Text(
-                            "Finish",
+                            title[i],
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: ColorPalette.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              color: ColorPalette.white,
+                              fontSize: i == 0 ? 36 : 24,
+                              fontWeight: i == 0
+                                  ? FontWeight.w500
+                                  : FontWeight.w700,
                               fontFamily: "Inter",
                             ),
                           ),
                         ),
-                      )
-                          : ElevatedButton(
-                        onPressed: () {
-                          if (_currentIndex < title.length - 1) {
-                            _pageController.nextPage(
-                              duration: const Duration(
-                                milliseconds: 200,
-                              ),
-                              curve: Curves.easeInOut,
-                            );
-                            setState(() {
-                              _currentIndex++;
-                            });
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: ColorPalette.primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                        const SizedBox(height: 8),
+                        Center(
                           child: Text(
-                            "Next",
-                            style: TextStyle(
-                              color: ColorPalette.black,
+                            desc[i],
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: ColorPalette.white,
                               fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                               fontFamily: "Inter",
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 10),
-                      if (i > 1)
+                        const SizedBox(height: 12),
+
+                        // ✅ Next / Finish button
                         ElevatedButton(
                           onPressed: () {
-                            if (_currentIndex > 0) {
-                              _pageController.previousPage(
-                                duration: const Duration(
-                                  milliseconds: 200,
-                                ),
+                            if (_currentIndex == title.length - 1) {
+                              // Last page → Go to SignIn
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                PagesRouteName.signIn,
+                                    (route) => false,
+                              );
+                            } else {
+                              // Not last page → Go next
+                              _pageController.nextPage(
+                                duration: const Duration(milliseconds: 200),
                                 curve: Curves.easeInOut,
                               );
-                              setState(() {
-                                _currentIndex--;
-                              });
                             }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            backgroundColor: ColorPalette.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            side: const BorderSide(
-                              color: ColorPalette.primaryColor,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              "Back",
-                              style: TextStyle(
-                                color: ColorPalette.primaryColor,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Inter",
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              )
-                  : Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 24,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Center(
-                        child: Text(
-                          textAlign: TextAlign.center,
-                          title[i],
-                          style: TextStyle(
-                            color: ColorPalette.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: "Inter",
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15),
-                      Center(
-                        child: Text(
-                          desc[i],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: ColorPalette.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Inter",
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                            setState(() {
-                              _currentIndex++;
-                            });
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
@@ -267,8 +139,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
-                              "Explore Now",
-                              style: TextStyle(
+                              _currentIndex == title.length - 1
+                                  ? "Finish"
+                                  : "Next",
+                              style: const TextStyle(
                                 color: ColorPalette.black,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -277,11 +151,122 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 15),
+
+                        // ✅ Back button (appears after page 1)
+                        if (i > 1)
+                          ElevatedButton(
+                            onPressed: () {
+                              if (_currentIndex > 0) {
+                                _pageController.previousPage(
+                                  duration:
+                                  const Duration(milliseconds: 200),
+                                  curve: Curves.easeInOut,
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: ColorPalette.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              side: const BorderSide(
+                                color: ColorPalette.primaryColor,
+                              ),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Text(
+                                "Back",
+                                style: TextStyle(
+                                  color: ColorPalette.primaryColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Inter",
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+
+              // ✅ First page (special design with "Explore Now")
+              if (i == 0)
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 24,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
+                          child: Text(
+                            title[i],
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: ColorPalette.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "Inter",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Center(
+                          child: Text(
+                            desc[i],
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: ColorPalette.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Inter",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              _pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: ColorPalette.primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Text(
+                                "Explore Now",
+                                style: TextStyle(
+                                  color: ColorPalette.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Inter",
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
             ],
           );
         },
